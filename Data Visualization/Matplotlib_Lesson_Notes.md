@@ -589,14 +589,14 @@ Markers show the locations of data points.
 |---|---|
 | `"o"` | Circle |
 | `"s"` | Square |
-| `"^` | Upward triangle |
+| `"^"` | Upward triangle |
 | `"v"` | Downward triangle |
-| `"*` | Star |
+| `"*"` | Star |
 | `"x"` | X mark |
 | `"+"` | Plus sign |
 | `"D"` | Diamond |
-| `"."` | Small point |
-| `"."` | Point marker; use `"." ` only if you intentionally want a very small marker |
+| `"."` | Small dot marker |
+| `","` | Pixel-sized marker, useful for dense point sets |
 
 Example:
 
