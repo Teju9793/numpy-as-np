@@ -1,59 +1,117 @@
-# Reshaping and Axis
+# 06 — Reshaping, Transpose and Axis Operations
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Change the organization of array data while preserving values, and understand how axis-based reductions work.
 
-## 1. Concept
+## 1. Shape describes organization
 
-Reshaping changes an array's arrangement without changing its element count. An axis tells a reduction which dimension to operate across.
-
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+An array with shape `(2, 3)` has two rows and three columns. Its total number of elements is (2\times3=6).
 
 ```python
 import numpy as np
-
 x = np.arange(6)
-M = x.reshape(2, 3)
-print(M.sum(axis=0))  # column sums
-print(M.sum(axis=1))  # row sums
-print(M.T)
+print(x.shape)  # (6,)
 ```
 
-## 4. Real-world use
+A 1-D array is not automatically a row or column matrix. Its shape is simply `(6,)`.
 
-Convert flat data to model-compatible shapes and aggregate rows or features.
+## 2. Reshape
 
-## 5. ML / AI connection
+```python
+x = np.arange(1, 7)
+print(x.reshape(2, 3))
+# [[1 2 3]
+#  [4 5 6]]
+```
 
-Convert flat data to model-compatible shapes and aggregate rows or features.
+Reshape changes the arrangement, not the number of values. The product of the new dimensions must equal the original size.
 
-## 6. Tips and shortcuts
+Valid shapes for 12 elements include `(3, 4)`, `(2, 6)`, `(12, 1)` and `(2, 2, 3)`.
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+## 3. Infer one dimension with -1
 
-## 7. Common mistakes
+```python
+x = np.arange(12)
+print(x.reshape(3, -1).shape)  # (3, 4)
+print(x.reshape(-1, 2).shape)  # (6, 2)
+```
 
-- For a 2D array, `axis=0` reduces rows (one result per column); `axis=1` reduces columns (one result per row).
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+NumPy calculates the missing dimension from the total size. Only one dimension can be inferred with `-1`.
 
-## 8. Quick revision
+## 4. Flatten and ravel
 
-- **Remember:** Reshaping changes an array's arrangement without changing its element count. An axis tells a reduction which dimension to operate across.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Convert flat data to model-compatible shapes and aggregate rows or features.
+```python
+m = np.array([[1, 2, 3], [4, 5, 6]])
+print(m.flatten())  # [1 2 3 4 5 6]
+print(m.ravel())    # [1 2 3 4 5 6]
+```
 
-## 9. Practice
+- `flatten()` returns a copy.
+- `ravel()` returns a view when possible; otherwise it creates a copy.
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+## 5. Transpose
 
----
+```python
+m = np.array([[1, 2, 3], [4, 5, 6]])
+print(m.T)
+# [[1 4]
+#  [2 5]
+#  [3 6]]
+```
 
-[← Back to NumPy chapter index](README.md) · [Master Notes home](../README.md)
+For a 2-D array, transpose swaps rows and columns. A shape of `(2, 3)` becomes `(3, 2)`. A 1-D array remains 1-D after `.T`.
+
+To create a column from a 1-D array, use `x.reshape(-1, 1)` or `x[:, np.newaxis]`.
+
+## 6. Understand axis with a concrete example
+
+```python
+scores = np.array([[10, 20, 30],
+                   [40, 50, 60]])
+
+print(scores.sum(axis=0))  # [50 70 90]
+print(scores.sum(axis=1))  # [ 60 150]
+```
+
+Imagine rows are students and columns are subjects:
+- `axis=0` collapses the student axis, leaving one total per subject.
+- `axis=1` collapses the subject axis, leaving one total per student.
+
+Memory aid: the axis named in a reduction is the direction being collapsed. Check the output shape to verify.
+
+## 7. Keep dimensions with keepdims
+
+```python
+x = np.array([[1, 2, 3], [4, 5, 6]])
+print(x.mean(axis=1).shape)                 # (2,)
+print(x.mean(axis=1, keepdims=True).shape)  # (2, 1)
+```
+
+`keepdims=True` keeps the reduced axis with length 1. This can make later broadcasting easier.
+
+## 8. Add an axis
+
+```python
+x = np.array([10, 20, 30])
+print(x[:, np.newaxis].shape)  # (3, 1)
+print(x[np.newaxis, :].shape)  # (1, 3)
+```
+
+This is useful when an ML library expects a column feature matrix instead of a 1-D vector.
+
+## 9. Common errors and debugging
+
+- Reshape fails: check that the product of new dimensions equals `size`.
+- Transpose seems wrong: write down what each axis represents before and after.
+- Axis reduction returns an unexpected shape: identify which axis was removed.
+- A 1-D array does not become a column using `.T`: explicitly add a dimension.
+- Flattening may allocate a copy; do not assume it shares memory.
+
+## 10. Practice
+
+1. Reshape 18 values into `(3, 6)`.
+2. Use `-1` to reshape 18 values into 2 columns.
+3. Transpose an array with shape `(4, 2)`.
+4. For a 3-by-4 array, predict the shapes of `sum(axis=0)` and `sum(axis=1)`.
+5. Repeat the previous sums with `keepdims=True`.
+
+**Checkpoint:** Explain both the numerical result and the output shape of every axis operation.

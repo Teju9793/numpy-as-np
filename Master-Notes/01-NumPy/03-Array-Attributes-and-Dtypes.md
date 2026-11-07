@@ -1,59 +1,147 @@
-# Array Attributes and Dtypes
+# 03 — Array Attributes and Data Types (dtype)
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Inspect an array, understand its data type, and choose a suitable type without losing information.
 
-## 1. Concept
+## 1. Why inspect an array?
 
-`shape`, `ndim`, `size` and `dtype` describe an array's dimensions, element count and data type.
-
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+Before calculating with data, check what you actually received. A dataset may contain the wrong shape, an unexpected data type, missing values or a much larger memory requirement than expected.
 
 ```python
 import numpy as np
+x = np.array([[10, 20, 30], [40, 50, 60]])
 
-x = np.array([[1, 2, 3], [4, 5, 6]])
-print(x.shape)  # (2, 3)
 print(x.ndim)   # 2
+print(x.shape)  # (2, 3)
 print(x.size)   # 6
-print(x.dtype)
+print(x.dtype)  # e.g. int64
+print(x.itemsize) # bytes used by one element
+print(x.nbytes)   # total bytes used by array elements
 ```
 
-## 4. Real-world use
+## 2. The core attributes
 
-Check feature-matrix dimensions and numeric types before model training.
+| Attribute | Meaning | Example |
+|---|---|---|
+| `ndim` | Number of axes | 2 |
+| `shape` | Length along each axis | `(2, 3)` |
+| `size` | Total number of elements | 6 |
+| `dtype` | Type of each element | `int64` |
+| `itemsize` | Bytes per element | often 8 for int64 |
+| `nbytes` | Bytes for all array elements | `size * itemsize` |
 
-## 5. ML / AI connection
+For the example above, if each integer occupies 8 bytes, `nbytes` is (6 \times 8=48). The exact byte count depends on the dtype.
 
-Check feature-matrix dimensions and numeric types before model training.
+## 3. What is dtype?
 
-## 6. Tips and shortcuts
+A **data type** tells NumPy what kind of value an element stores and how that value is represented in memory.
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+Common types:
+- `int32`, `int64`: signed integers.
+- `float32`, `float64`: floating-point numbers.
+- `bool_`: True or False.
+- `complex64`, `complex128`: complex numbers.
+- `str_` / Unicode string dtypes: text values.
+- `object`: Python objects; flexible but often less efficient for numerical work.
 
-## 7. Common mistakes
+```python
+a = np.array([1, 2, 3])
+b = np.array([1.5, 2.5, 3.5])
+c = np.array([True, False, True])
 
-- `shape` is a tuple. `astype()` returns a converted array; assign the result if you want to keep it.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+print(a.dtype)
+print(b.dtype)
+print(c.dtype)
+```
 
-## 8. Quick revision
+Default integer width may depend on platform. If the width matters, specify it explicitly.
 
-- **Remember:** `shape`, `ndim`, `size` and `dtype` describe an array's dimensions, element count and data type.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Check feature-matrix dimensions and numeric types before model training.
+## 4. Choose a dtype while creating an array
 
-## 9. Practice
+```python
+a = np.array([1, 2, 3], dtype=np.int32)
+b = np.array([1, 2, 3], dtype=np.float32)
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+print(a.dtype)  # int32
+print(b.dtype)  # float32
+```
 
----
+Why use a smaller type? It may reduce memory use. But a smaller type has a smaller representable range or less precision. Do not choose a dtype only because its name looks efficient.
 
-[← Back to NumPy chapter index](README.md) · [Master Notes home](../README.md)
+## 5. Convert an existing array with astype
+
+`astype()` creates a converted array:
+
+```python
+scores = np.array([70, 80, 90])
+decimal_scores = scores.astype(np.float64)
+
+print(decimal_scores)       # [70. 80. 90.]
+print(decimal_scores.dtype) # float64
+```
+
+A dangerous conversion is floating point to integer:
+
+```python
+values = np.array([2.9, 3.7, -1.8])
+print(values.astype(int))
+# [ 2  3 -1]
+```
+
+The fractional part is discarded (truncated toward zero), not rounded to the nearest integer. If rounding is intended, use `np.round(values).astype(int)`.
+
+## 6. Integer overflow and precision
+
+An integer dtype has a limited range. For example, a signed 8-bit integer can represent values from -128 through 127. Values outside the range cannot be represented correctly in that dtype.
+
+Floating-point values also have finite precision. Many decimal fractions, such as 0.1, cannot be represented exactly in binary floating point.
+
+```python
+x = np.array([0.1, 0.2, 0.3])
+print(x[0] + x[1] == x[2])
+# commonly False
+print(np.isclose(x[0] + x[1], x[2]))
+# True
+```
+
+For approximate numerical comparisons, use `np.isclose` or `np.allclose`, not exact equality.
+
+## 7. Missing and special numerical values
+
+Floating-point arrays can represent:
+- `np.nan`: not-a-number, often used for missing numerical data.
+- `np.inf`: positive infinity.
+- `-np.inf`: negative infinity.
+
+```python
+x = np.array([10.0, np.nan, 30.0, np.inf])
+print(np.isnan(x))  # [False  True False False]
+print(np.isinf(x))  # [False False False  True]
+```
+
+Ordinary integer dtypes do not have a built-in NaN value. Data analysis libraries may use nullable integer types or other missing-value representations.
+
+## 8. Practical dtype checklist
+
+1. Is the data numeric, Boolean or text?
+2. Does the chosen type cover the full value range?
+3. Do you need decimal precision?
+4. Are missing values possible?
+5. Does reducing memory matter for this dataset?
+6. Could conversion truncate or overflow values?
+
+## 9. Common mistakes
+
+- Assuming every computer uses the same default integer dtype.
+- Converting floats to integers and silently losing decimal parts.
+- Comparing floating-point calculations with `==`.
+- Assuming `nbytes` includes every Python object or all surrounding overhead; it reports the array element buffer size.
+- Using `object` dtype for numerical data without a reason.
+
+## 10. Practice
+
+1. Create an array of 12 float values and inspect its `dtype`, `shape` and `nbytes`.
+2. Convert it to `float32`. Compare memory use.
+3. Convert `[1.2, 2.8, 3.5]` to integers. Explain what happened to the decimals.
+4. Create an array containing NaN and identify the missing position using `np.isnan`.
+
+**Checkpoint:** You should be able to explain what dtype means and why converting a dtype can change the information stored.
