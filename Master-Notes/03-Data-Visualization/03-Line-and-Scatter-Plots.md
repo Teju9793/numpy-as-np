@@ -1,60 +1,136 @@
-# Line and Scatter Plots
+# 03 — Line Plots and Scatter Plots
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Use line plots to show trends and scatter plots to inspect relationships between two numerical variables.
 
-## 1. Concept
+## 1. Line plot — show change across an ordered axis
 
-Line plots show ordered trends; scatter plots show relationships between two numeric variables.
-
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+A line plot connects data points in sequence. It is useful when x-values have a meaningful order, especially time.
 
 ```python
 import matplotlib.pyplot as plt
 
-hours = [1, 2, 3, 4]
-marks = [45, 55, 68, 75]
+months = ["Jan", "Feb", "Mar", "Apr", "May"]
+sales = [120, 150, 135, 180, 210]
+
 fig, ax = plt.subplots()
-ax.scatter(hours, marks, alpha=0.8)
-ax.set(xlabel="Study hours", ylabel="Marks")
+ax.plot(months, sales, marker="o")
+ax.set_title("Monthly Sales")
+ax.set_xlabel("Month")
+ax.set_ylabel("Sales (units)")
+ax.grid(True)
 plt.show()
 ```
 
-## 4. Real-world use
+The line helps the viewer see direction and changes over time.
 
-Inspect possible relationships between a feature and a target; identify clusters and nonlinear patterns.
+## 2. Multiple lines
 
-## 5. ML / AI connection
+```python
+months = [1, 2, 3, 4]
+city_a = [20, 22, 21, 25]
+city_b = [18, 19, 23, 24]
 
-Inspect possible relationships between a feature and a target; identify clusters and nonlinear patterns.
+fig, ax = plt.subplots()
+ax.plot(months, city_a, marker="o", label="City A")
+ax.plot(months, city_b, marker="s", label="City B")
+ax.set_xlabel("Month")
+ax.set_ylabel("Temperature (°C)")
+ax.legend()
+plt.show()
+```
 
-## 6. Tips and shortcuts
+Use distinct labels and a restrained set of visual styles. Too many lines can make the chart unreadable.
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+## 3. Scatter plot — show paired observations
 
-## 7. Common mistakes
+A scatter plot places one point for each pair ((x,y)). It is useful for exploring whether two numerical variables are associated.
 
-- A scatter plot shows association, not proof of causation. Use a line when x has meaningful order.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+```python
+study_hours = [1, 2, 3, 4, 5, 6]
+marks = [35, 42, 55, 62, 78, 85]
 
-## 8. Quick revision
+fig, ax = plt.subplots()
+ax.scatter(study_hours, marks)
+ax.set_xlabel("Study Hours")
+ax.set_ylabel("Marks")
+ax.set_title("Study Hours vs Marks")
+plt.show()
+```
 
-- **Remember:** Line plots show ordered trends; scatter plots show relationships between two numeric variables.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Inspect possible relationships between a feature and a target; identify clusters and nonlinear patterns.
+Each dot represents one student. The overall pattern may suggest a positive relationship, but it does not prove that study hours alone caused the marks.
+
+## 4. Interpret scatter patterns
+
+- **Positive association:** y tends to increase as x increases.
+- **Negative association:** y tends to decrease as x increases.
+- **No clear linear association:** no obvious upward or downward pattern.
+- **Clusters:** groups of observations.
+- **Outliers:** points far from the main pattern.
+- **Nonlinear pattern:** a curve or other structured relationship.
+
+Always consider context and possible third variables.
+
+## 5. Add size or color to encode another variable
+
+```python
+fig, ax = plt.subplots()
+scatter = ax.scatter(
+    study_hours,
+    marks,
+    s=[40, 60, 80, 100, 120, 140],
+    c=[1, 2, 1, 2, 1, 2],
+    alpha=0.7
+)
+ax.set_xlabel("Study Hours")
+ax.set_ylabel("Marks")
+plt.show()
+```
+
+Marker size or color can represent another variable. If color represents a numerical value, add a colorbar and label it. If it represents categories, explain the category mapping.
+
+## 6. Regression line as a visual guide
+
+Seaborn can add a fitted trend line:
+
+```python
+import seaborn as sns
+import pandas as pd
+
+data = pd.DataFrame({
+    "Hours": [1, 2, 3, 4, 5, 6],
+    "Marks": [35, 42, 55, 62, 78, 85]
+})
+sns.regplot(data=data, x="Hours", y="Marks")
+plt.show()
+```
+
+The line summarizes a linear trend. It is not proof of causation and may not be appropriate if the relationship is nonlinear or assumptions are violated.
+
+## 7. Line plot versus scatter plot
+
+| Line plot | Scatter plot |
+|---|---|
+| Connects observations | Shows separate points |
+| Useful for ordered sequences | Useful for paired numerical values |
+| Emphasizes trend or continuity | Emphasizes relationship, clusters and outliers |
+| X-axis often time/order | X-axis is another variable |
+
+Do not connect unrelated categories with a line because that implies an order or continuity that may not exist.
+
+## 8. Common mistakes
+
+- Using a line plot for unrelated categories.
+- Connecting time points that are not in chronological order.
+- Assuming a visible association proves causation.
+- Hiding overlapping points in dense scatter plots; use transparency or sampling.
+- Forgetting to label size/color encodings.
 
 ## 9. Practice
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+1. Plot monthly revenue as a line chart.
+2. Plot study hours against exam marks as a scatter plot.
+3. Add a second city's line to compare trends.
+4. Identify positive, negative and nonlinear patterns using sample data.
+5. Add a third variable through point color and explain its meaning.
 
----
-
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+**Checkpoint:** Ask whether the x-axis is an ordered sequence or a separate numerical variable before choosing line versus scatter.

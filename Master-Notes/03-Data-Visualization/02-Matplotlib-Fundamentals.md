@@ -1,61 +1,144 @@
-# Matplotlib Fundamentals
+# 02 — Matplotlib Fundamentals
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Create a basic plot, understand the Figure and Axes objects, and customize labels, limits, grids and legends.
 
-## 1. Concept
+## 1. What is Matplotlib?
 
-Matplotlib is flexible: a Figure is the whole canvas; an Axes is an individual plotting area.
+Matplotlib is a Python plotting library used to create static, animated and interactive visualizations. Its `pyplot` interface provides convenient functions for common plotting tasks.
 
-## 2. Why it matters
+```python
+import matplotlib.pyplot as plt
+```
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+## 2. Your first line plot
 
 ```python
 import matplotlib.pyplot as plt
 
-x = [1, 2, 3]
-y = [2, 4, 3]
-fig, ax = plt.subplots()
-ax.plot(x, y, marker="o", label="score")
-ax.set(title="Score trend", xlabel="Week", ylabel="Score")
+days = [1, 2, 3, 4, 5]
+temperature = [28, 30, 29, 32, 31]
+
+plt.plot(days, temperature)
+plt.show()
+```
+
+The x-values represent days and the y-values represent temperature. Matplotlib draws points and connects them with lines.
+
+## 3. Add title and axis labels
+
+```python
+plt.plot(days, temperature)
+plt.title("Temperature Across Five Days")
+plt.xlabel("Day")
+plt.ylabel("Temperature (°C)")
+plt.grid(True)
+plt.show()
+```
+
+Labels tell the viewer what the axes mean. Always include units when they are relevant.
+
+## 4. Figure and Axes — the core mental model
+
+- **Figure:** the complete canvas or window.
+- **Axes:** one plotting area inside the Figure.
+- **Axis:** the x or y scale and ticks within an Axes.
+
+A Figure can contain multiple Axes. The object-oriented interface gives explicit control:
+
+```python
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(days, temperature, marker="o", label="Temperature")
+ax.set_title("Temperature Across Five Days")
+ax.set_xlabel("Day")
+ax.set_ylabel("Temperature (°C)")
+ax.grid(True)
 ax.legend()
 plt.show()
 ```
 
-## 4. Real-world use
+For larger projects, prefer the object-oriented style because each Axes can be customized independently.
 
-Create controlled plots for feature analysis and model diagnostics.
+## 5. Change line appearance
 
-## 5. ML / AI connection
+```python
+fig, ax = plt.subplots()
+ax.plot(
+    days,
+    temperature,
+    color="teal",
+    linestyle="--",
+    linewidth=2,
+    marker="o",
+    markersize=6,
+    label="Daily temperature"
+)
+ax.legend()
+plt.show()
+```
 
-Create controlled plots for feature analysis and model diagnostics.
+Common options:
+- `color`: line color.
+- `linestyle`: solid, dashed, dotted, etc.
+- `linewidth`: line thickness.
+- `marker`: marker symbol at data points.
+- `markersize`: marker size.
+- `label`: legend text.
 
-## 6. Tips and shortcuts
+## 6. Set limits and ticks
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+```python
+ax.set_xlim(1, 5)
+ax.set_ylim(20, 40)
+ax.set_xticks([1, 2, 3, 4, 5])
+```
 
-## 7. Common mistakes
+Use limits carefully. A line chart may use a truncated scale for a specific reason, but make that choice clear. For bar charts, a zero baseline is usually important for honest comparison.
 
-- Prefer the object-oriented `fig, ax = plt.subplots()` style for reusable multi-plot code.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+## 7. Add a legend
 
-## 8. Quick revision
+A legend explains what each plotted series represents:
 
-- **Remember:** Matplotlib is flexible: a Figure is the whole canvas; an Axes is an individual plotting area.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Create controlled plots for feature analysis and model diagnostics.
+```python
+ax.plot(days, [28, 30, 29, 32, 31], label="City A")
+ax.plot(days, [25, 27, 28, 29, 30], label="City B")
+ax.legend()
+```
 
-## 9. Practice
+A legend requires labels on the plotted series.
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+## 8. Save a figure
 
----
+```python
+fig.savefig("temperature.png", dpi=300, bbox_inches="tight")
+```
 
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+- `dpi`: resolution.
+- `bbox_inches="tight"`: reduce unnecessary surrounding whitespace.
+
+Save before closing the figure. Choose an appropriate format such as PNG, SVG or PDF depending on the intended use.
+
+## 9. Pyplot versus object-oriented style
+
+| Pyplot style | Object-oriented style |
+|---|---|
+| `plt.plot(...)` | `ax.plot(...)` |
+| `plt.title(...)` | `ax.set_title(...)` |
+| Convenient for quick plots | Better for multiple axes and reusable code |
+| Uses current active axes | Explicitly targets a chosen Axes |
+
+Both are valid. Learn the object-oriented style for control, and use pyplot for quick exploration.
+
+## 10. Common mistakes
+
+- Forgetting `plt.show()` in a normal script.
+- Confusing Figure, Axes and Axis.
+- Omitting units from labels.
+- Creating a legend without labels.
+- Saving the wrong or empty figure after creating multiple figures.
+- Adding too many decorative elements that distract from the data.
+
+## 11. Practice
+
+Create a line plot of weekly study hours. Add a title, x/y labels, markers, grid, legend and save it as a high-resolution PNG.
+
+**Checkpoint:** You should be able to explain what `fig` and `ax` represent in `fig, ax = plt.subplots()`.
