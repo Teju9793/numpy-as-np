@@ -1,59 +1,139 @@
-# Filtering, Sorting and Searching
+# 10 — Filtering, Sorting and Searching
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Select values by conditions, sort data, find positions and count occurrences.
 
-## 1. Concept
-
-Use masks and search/sort helpers to select, order and locate values.
-
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+## 1. Filter using a condition
 
 ```python
 import numpy as np
-
-x = np.array([8, 2, 7, 2, 10])
-print(np.unique(x))
-print(np.argsort(x))
-print(np.where(x >= 7))
-print(np.clip(x, 3, 9))
+values = np.array([12, 45, 7, 90, 32])
+print(values[values > 30])
+# [45 90 32]
 ```
 
-## 4. Real-world use
+A comparison creates a Boolean mask. Indexing with the mask returns only values where the condition is True.
 
-Find extreme values, create condition-based masks and inspect feature values.
+## 2. Find positions with where
 
-## 5. ML / AI connection
+`np.where(condition)` returns the indexes where a condition is True:
 
-Find extreme values, create condition-based masks and inspect feature values.
+```python
+x = np.array([10, 25, 40, 15, 60])
+print(np.where(x > 20))
+# (array([1, 2, 4]),)
+```
 
-## 6. Tips and shortcuts
+For a 1-D array, the result is a tuple containing the index array. For 2-D arrays, it returns one index array per axis.
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+The three-argument form chooses values:
 
-## 7. Common mistakes
+```python
+print(np.where(x > 20, "High", "Low"))
+# ['Low' 'High' 'High' 'Low' 'High']
+```
 
-- `sort` returns sorted values; `argsort` returns indices that would sort the array.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+## 3. Sort values
 
-## 8. Quick revision
+```python
+x = np.array([40, 10, 30, 20])
+print(np.sort(x))
+# [10 20 30 40]
+print(x)
+# [40 10 30 20]
+```
 
-- **Remember:** Use masks and search/sort helpers to select, order and locate values.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Find extreme values, create condition-based masks and inspect feature values.
+`np.sort` returns a sorted copy; it does not change the original array.
 
-## 9. Practice
+To sort the original array in place:
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+```python
+x.sort()
+print(x)  # [10 20 30 40]
+```
 
----
+Descending order for numeric values:
 
-[← Back to NumPy chapter index](README.md) · [Master Notes home](../README.md)
+```python
+x = np.array([40, 10, 30, 20])
+print(np.sort(x)[::-1])
+# [40 30 20 10]
+```
+
+## 4. Sort along an axis
+
+```python
+m = np.array([[3, 1, 2],
+              [9, 7, 8]])
+print(np.sort(m, axis=1))
+# [[1 2 3]
+#  [7 8 9]]
+```
+
+- axis 1 sorts each row.
+- axis 0 sorts each column.
+- axis=None sorts the flattened values.
+
+## 5. argsort — get the sorting order
+
+Sometimes you need the positions that would sort the data, not just the sorted values.
+
+```python
+scores = np.array([70, 90, 60, 80])
+order = np.argsort(scores)
+print(order)          # [2 0 3 1]
+print(scores[order])  # [60 70 80 90]
+```
+
+The smallest value is at index 2, next at index 0, then 3, then 1. This is useful when you need to reorder another array using the same ranking.
+
+## 6. Find minimum and maximum indexes
+
+```python
+x = np.array([12, 50, 7, 90, 32])
+print(np.argmax(x))  # 3
+print(np.argmin(x))  # 2
+```
+
+These return the index of the maximum or minimum value. For multidimensional arrays, specify an axis if you want an index per row or column.
+
+## 7. Unique values and counts
+
+```python
+x = np.array([2, 3, 2, 5, 3, 2])
+print(np.unique(x))
+# [2 3 5]
+print(np.unique(x, return_counts=True))
+# (array([2, 3, 5]), array([3, 2, 1]))
+```
+
+The second result tells us 2 occurs three times, 3 occurs twice and 5 occurs once.
+
+## 8. Search in sorted arrays with searchsorted
+
+`np.searchsorted` finds where a value should be inserted to keep a sorted array in order.
+
+```python
+x = np.array([10, 20, 30, 40])
+print(np.searchsorted(x, 25))  # 2
+```
+
+Index 2 is before 30. By default, it uses the left insertion position. The input array should be sorted for the result to have the intended meaning.
+
+## 9. Common mistakes
+
+- Confusing values from `where` with their indexes.
+- Expecting `np.sort` to modify the original.
+- Forgetting that `argsort` returns positions.
+- Using `searchsorted` on an unsorted array.
+- Forgetting that `argmax` returns an index, not the maximum value itself.
+
+## 10. Practice
+
+1. Filter values greater than 50.
+2. Find the indexes where values are even.
+3. Sort an array without changing the original.
+4. Use `argsort` to rank student scores.
+5. Find unique values and their counts.
+6. Find the index of the highest score.
+
+**Checkpoint:** Know the difference between a value, its index and the order of indexes that would sort the array.
