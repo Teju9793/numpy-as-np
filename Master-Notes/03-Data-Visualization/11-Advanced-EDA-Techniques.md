@@ -1,59 +1,143 @@
-# Advanced EDA Techniques
+# 11 — Advanced EDA Techniques
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Go beyond basic plots to inspect outliers, category relationships, missingness and time patterns.
 
-## 1. Concept
+## 1. Why advanced EDA?
 
-EDA combines summaries and plots to ask focused questions about data quality, distributions and relationships.
+Basic charts show the first patterns. Advanced EDA helps investigate why patterns appear, whether they are stable and whether data quality is affecting conclusions.
 
-## 2. Why it matters
+## 2. Detect possible outliers with the IQR rule
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
+The interquartile range is:
 
-## 3. Syntax and small example
+[
+IQR=Q3-Q1
+]
+
+Common Tukey fences are:
+[
+Lower=Q1-1.5\times IQR
+]
+[
+Upper=Q3+1.5\times IQR
+]
+
+```python
+Q1 = df["Marks"].quantile(0.25)
+Q3 = df["Marks"].quantile(0.75)
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+possible_outliers = df[
+    (df["Marks"] < lower) | (df["Marks"] > upper)
+]
+```
+
+This identifies possible outliers, not guaranteed errors. Use domain knowledge to investigate them.
+
+## 3. Compare distributions by category
 
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-sns.countplot(data=df, x="category", order=df["category"].value_counts().index)
-plt.xticks(rotation=45)
+sns.boxenplot(data=df, x="Department", y="Marks")
 plt.show()
-print(df.isna().mean().sort_values(ascending=False))
 ```
 
-## 4. Real-world use
+A boxen plot can display more distribution detail for larger datasets. A box plot or violin plot may be easier for smaller samples.
 
-Build a repeatable EDA checklist before deciding preprocessing and feature engineering.
+## 4. Category relationships with crosstab
 
-## 5. ML / AI connection
+```python
+table = pd.crosstab(df["Department"], df["Result"])
+sns.heatmap(table, annot=True, fmt="d", cmap="Blues")
+plt.show()
+```
 
-Build a repeatable EDA checklist before deciding preprocessing and feature engineering.
+This displays counts for each department-result combination. Normalize counts when groups have very different sizes.
 
-## 6. Tips and shortcuts
+## 5. Missingness pattern
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+```python
+missing = df.isna().astype(int)
+sns.heatmap(missing, cbar=False)
+plt.title("Missingness Pattern")
+plt.show()
+```
 
-## 7. Common mistakes
+Rows and columns reveal where values are missing. A pattern may suggest that missingness is related to a collection process or subgroup. A heatmap alone cannot establish the reason.
 
-- EDA is exploratory: do not let test-set information leak into model choices or preprocessing.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+## 6. Time-series exploration
 
-## 8. Quick revision
+For time-based data:
+1. Convert the date column to datetime.
+2. Sort chronologically.
+3. Set the date as the index if useful.
+4. Plot the series.
+5. Examine trend, seasonality and unusual periods.
 
-- **Remember:** EDA combines summaries and plots to ask focused questions about data quality, distributions and relationships.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Build a repeatable EDA checklist before deciding preprocessing and feature engineering.
+```python
+df["Date"] = pd.to_datetime(df["Date"])
+df = df.sort_values("Date")
 
-## 9. Practice
+fig, ax = plt.subplots()
+ax.plot(df["Date"], df["Sales"])
+ax.set_xlabel("Date")
+ax.set_ylabel("Sales")
+plt.show()
+```
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+## 7. Rolling averages
 
----
+A rolling average smooths short-term variation:
 
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+```python
+df["Rolling_7"] = df["Sales"].rolling(window=7, min_periods=1).mean()
+```
+
+A rolling window of 7 uses the current observation and up to six preceding observations. For daily data, this can represent a 7-observation moving average; check whether missing dates affect the interpretation.
+
+## 8. Pairwise relationships and nonlinear patterns
+
+A scatter plot with a smooth trend can reveal nonlinear relationships. A correlation coefficient may be near zero even when a strong curved pattern exists.
+
+```python
+sns.regplot(data=df, x="Feature", y="Target", lowess=True)
+plt.show()
+```
+
+LOWESS is a locally weighted smoothing method. It is exploratory and should not be mistaken for a validated predictive model.
+
+## 9. Segment analysis
+
+Compare a key metric across meaningful groups, such as:
+- customer age bands,
+- geographic regions,
+- product categories,
+- student departments,
+- months or seasons.
+
+Check sample sizes for each segment. A large average difference based on only two observations may be unstable.
+
+## 10. Common mistakes
+
+- Treating statistical outlier rules as automatic deletion rules.
+- Comparing raw counts across unequal group sizes.
+- Smoothing a time series without considering ordering and missing dates.
+- Interpreting missingness patterns as proof of a cause.
+- Overfitting a story to random visual patterns.
+
+## 11. Practice
+
+For a sales or student dataset:
+1. Identify possible outliers with IQR.
+2. Visualize missingness.
+3. Create a category crosstab heatmap.
+4. Plot a time series and rolling average if dates exist.
+5. Compare a metric across meaningful segments.
+6. Document which findings require further validation.
+
+**Checkpoint:** Advanced EDA should produce testable questions and better data understanding—not unsupported conclusions.

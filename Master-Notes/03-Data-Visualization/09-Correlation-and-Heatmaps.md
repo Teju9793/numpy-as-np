@@ -1,58 +1,112 @@
-# Correlation and Heatmaps
+# 09 — Correlation and Heatmaps
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Explore relationships between numerical variables using correlation coefficients and heatmaps, while understanding their limitations.
 
-## 1. Concept
+## 1. What is correlation?
 
-Correlation measures strength and direction of association between numeric variables. A heatmap displays a matrix using colour.
+Correlation measures the strength and direction of association between two variables. A common measure is Pearson correlation, which focuses on a linear relationship.
 
-## 2. Why it matters
+The correlation coefficient (r) ranges from -1 to +1:
+- +1: perfect positive linear relationship.
+- 0: no linear correlation.
+- -1: perfect negative linear relationship.
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
+A correlation near zero does not rule out a nonlinear relationship.
 
-## 3. Syntax and small example
+## 2. Calculate correlation with Pandas
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    "Hours": [1, 2, 3, 4, 5],
+    "Marks": [40, 50, 60, 70, 80],
+    "Sleep": [8, 7, 7, 6, 6]
+})
+
+print(df.corr(numeric_only=True))
+```
+
+The result is a correlation matrix. The diagonal is 1 because each variable is perfectly correlated with itself.
+
+## 3. Pearson, Spearman and Kendall
+
+- **Pearson:** measures linear correlation using original values.
+- **Spearman:** measures rank-based monotonic association.
+- **Kendall:** rank-based association using concordant and discordant pairs.
+
+```python
+df.corr(method="pearson", numeric_only=True)
+df.corr(method="spearman", numeric_only=True)
+df.corr(method="kendall", numeric_only=True)
+```
+
+Choose the method based on the relationship and data, not just whichever produces the largest number.
+
+## 4. Draw a heatmap
 
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-corr = df.select_dtypes(include="number").corr()
-sns.heatmap(corr, annot=True, cmap="coolwarm", center=0)
+corr = df.corr(numeric_only=True)
+sns.heatmap(corr, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
+plt.title("Correlation Heatmap")
 plt.show()
 ```
 
-## 4. Real-world use
+- `annot=True`: write values inside cells.
+- `vmin` and `vmax`: set color scale limits.
+- `cmap`: choose a color map.
 
-Find strongly related features and possible multicollinearity before modelling.
+A centered scale from -1 to +1 makes positive and negative relationships visually comparable.
 
-## 5. ML / AI connection
+## 5. Mask one half of a symmetric matrix
 
-Find strongly related features and possible multicollinearity before modelling.
+Correlation matrices are symmetric: corr(A, B) equals corr(B, A). To reduce duplicate information:
 
-## 6. Tips and shortcuts
+```python
+import numpy as np
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+mask = np.triu(np.ones_like(corr, dtype=bool))
+sns.heatmap(corr, mask=mask, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
+plt.show()
+```
 
-## 7. Common mistakes
+The mask hides the upper triangle including the diagonal.
 
-- Correlation is not causation. Pearson correlation mainly captures linear association and can be affected by outliers.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+## 6. Correlation does not mean causation
 
-## 8. Quick revision
+If two variables move together, that does not prove one causes the other. A third variable may influence both, or the association may be coincidental.
 
-- **Remember:** Correlation measures strength and direction of association between numeric variables. A heatmap displays a matrix using colour.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Find strongly related features and possible multicollinearity before modelling.
+A strong correlation is a clue for further investigation, not a causal conclusion.
+
+## 7. Outliers can change correlation
+
+Pearson correlation can be strongly affected by outliers. Always inspect a scatter plot alongside a correlation value.
+
+```python
+sns.scatterplot(data=df, x="Hours", y="Marks")
+plt.show()
+```
+
+A single extreme observation can create or hide an apparent linear pattern.
+
+## 8. Common mistakes
+
+- Interpreting correlation as causation.
+- Treating zero Pearson correlation as proof of no relationship.
+- Forgetting that correlation is sensitive to outliers.
+- Including ID columns in a correlation matrix without a reason.
+- Comparing heatmaps with different color scales.
+- Ignoring sample size and uncertainty.
 
 ## 9. Practice
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+1. Calculate a Pearson correlation matrix for numerical columns.
+2. Draw an annotated heatmap with a fixed -1 to +1 scale.
+3. Compare Pearson and Spearman correlation.
+4. Draw scatter plots for the strongest positive and negative pairs.
+5. Explain why correlation cannot establish causation.
 
----
-
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+**Checkpoint:** A heatmap helps reveal patterns, but inspect the underlying scatter plots before making a conclusion.

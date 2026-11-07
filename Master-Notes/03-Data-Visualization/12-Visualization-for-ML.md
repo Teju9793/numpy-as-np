@@ -1,60 +1,142 @@
-# Visualization for ML
+# 12 — Data Visualization for Machine Learning
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Use plots to understand features, targets, model errors and model behavior without confusing exploration with proof.
 
-## 1. Concept
+## 1. Why visualize in ML?
 
-Model diagnostic plots help evaluate errors, trade-offs and whether a model is learning useful patterns.
+Visualization supports the machine-learning workflow:
+- understand the target distribution,
+- inspect feature distributions,
+- find possible outliers,
+- explore relationships,
+- compare classes,
+- inspect prediction errors,
+- communicate model behavior.
 
-## 2. Why it matters
+Plots help diagnose and explain; they do not replace proper validation metrics.
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
+## 2. Understand the target
 
-## 3. Syntax and small example
+For regression, inspect the target distribution:
 
 ```python
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# cm is a confusion-matrix array
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
+sns.histplot(data=df, x="Target", kde=True)
 plt.show()
 ```
 
-## 4. Real-world use
+For classification, inspect class counts:
 
-Use plots to understand classification errors, regression residuals and model performance beyond a single score.
+```python
+sns.countplot(data=df, x="TargetClass")
+plt.show()
+```
 
-## 5. ML / AI connection
+A highly imbalanced class distribution can affect model training and evaluation. Accuracy alone may be misleading.
 
-Use plots to understand classification errors, regression residuals and model performance beyond a single score.
+## 3. Feature distributions and outliers
 
-## 6. Tips and shortcuts
+```python
+sns.histplot(data=df, x="Feature1", kde=True)
+sns.boxplot(data=df, x="Feature1")
+plt.show()
+```
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+Check whether values are skewed, contain unusual ranges or require transformations. Outliers are not automatically errors.
 
-## 7. Common mistakes
+## 4. Feature relationships
 
-- Choose metrics and plots based on the task and class balance. Feature importance is model-dependent and does not prove causality.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+```python
+sns.scatterplot(data=df, x="Feature1", y="Feature2", hue="TargetClass")
+plt.show()
+```
 
-## 8. Quick revision
+This may reveal clusters or class separation. If many points overlap, use transparency or a sampling strategy.
 
-- **Remember:** Model diagnostic plots help evaluate errors, trade-offs and whether a model is learning useful patterns.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Use plots to understand classification errors, regression residuals and model performance beyond a single score.
+## 5. Confusion matrix for classification
 
-## 9. Practice
+A confusion matrix compares true labels with predicted labels:
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+```python
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
----
+cm = confusion_matrix(y_test, y_pred)
+ConfusionMatrixDisplay(confusion_matrix=cm).plot()
+plt.show()
+```
 
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+For binary classification:
+- true positive: positive correctly predicted,
+- true negative: negative correctly predicted,
+- false positive: negative incorrectly predicted as positive,
+- false negative: positive incorrectly predicted as negative.
+
+The order of labels and the positive class should be stated clearly.
+
+## 6. Regression residual plot
+
+A residual is:
+[
+Residual = Actual - Predicted
+]
+
+```python
+residuals = y_test - y_pred
+
+plt.scatter(y_pred, residuals)
+plt.axhline(0, linestyle="--")
+plt.xlabel("Predicted")
+plt.ylabel("Residual")
+plt.title("Residual Plot")
+plt.show()
+```
+
+A pattern in residuals may suggest nonlinearity, changing variance or missing structure. A random cloud around zero is often desirable, but it is not the only diagnostic.
+
+## 7. Actual versus predicted
+
+```python
+plt.scatter(y_test, y_pred)
+plt.xlabel("Actual")
+plt.ylabel("Predicted")
+plt.title("Actual vs Predicted")
+plt.show()
+```
+
+Perfect predictions would lie on the diagonal (y=x). Add a reference line when the axes share comparable scales.
+
+## 8. Learning curves
+
+A learning curve compares model performance as training data size increases. It can help diagnose high bias, high variance or whether more training data may help.
+
+Scikit-learn provides tools such as `learning_curve`. Always distinguish training score from cross-validation score.
+
+## 9. Feature importance and caution
+
+Some models provide feature importance values. A bar chart can show their relative importance, but importance is model-dependent and does not automatically imply causation. Correlated features can share or distort importance.
+
+For more robust interpretation, consider permutation importance or model-agnostic explanation tools, while respecting validation data.
+
+## 10. Avoid data leakage during visualization and modeling
+
+Exploratory plots can be made on training data, but do not use test-set information to choose preprocessing parameters or repeatedly tune a model. Keep the final test set for an unbiased evaluation after decisions are complete.
+
+## 11. Common mistakes
+
+- Using accuracy alone for imbalanced classification.
+- Misreading confusion-matrix axes.
+- Assuming residuals must be exactly zero.
+- Treating feature importance as causal evidence.
+- Tuning repeatedly on the test set.
+- Drawing conclusions from training performance alone.
+
+## 12. Practice
+
+Train a simple regression or classification model and create:
+1. Target distribution plot.
+2. Feature histogram and box plot.
+3. Correlation heatmap for numeric features.
+4. Confusion matrix (classification) or actual-vs-predicted plot (regression).
+5. Residual plot for regression.
+6. A short explanation of what each plot reveals and what it cannot prove.
+
+**Checkpoint:** Visualization is a diagnostic partner to ML metrics. Use it to ask better questions, then validate those questions with sound evaluation.
