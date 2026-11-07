@@ -1,57 +1,126 @@
-# Data Cleaning
+# 05 — Data Cleaning with Pandas
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Detect and correct common data-quality problems without accidentally destroying useful information.
 
-## 1. Concept
+## 1. What is data cleaning?
 
-Cleaning fixes inaccurate, duplicated or inconsistent records before analysis.
+Real-world data may contain inconsistent spelling, extra spaces, duplicated records, incorrect values, wrong data types and missing entries. **Data cleaning** is the process of finding and handling these issues before analysis.
 
-## 2. Why it matters
+Always inspect first. Do not delete rows just because they look unusual.
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+## 2. Start with a sample dataset
 
 ```python
 import pandas as pd
 
-df = pd.DataFrame({"city": ["Tumkur ", "tumkur", "Mysuru"]})
-df["city"] = df["city"].str.strip().str.title()
+df = pd.DataFrame({
+    "Name": [" Asha ", "RAVI", "Maya", "Maya"],
+    "Age": [19, 20, None, None],
+    "Department": ["CSE", "cse", "ECE", "ECE"],
+    "Marks": [85, 72, 91, 91]
+})
+```
+
+## 3. Remove unwanted spaces
+
+```python
+df["Name"] = df["Name"].str.strip()
+```
+
+- `strip()`: removes spaces at both ends.
+- `lstrip()`: removes spaces from the left.
+- `rstrip()`: removes spaces from the right.
+
+This avoids treating "Asha" and " Asha " as different categories.
+
+## 4. Standardize text case
+
+```python
+df["Name"] = df["Name"].str.title()
+df["Department"] = df["Department"].str.upper()
+```
+
+Other common string methods include `lower()`, `upper()`, `capitalize()`, `replace()` and `contains()`. Use them through the Series string accessor `.str`.
+
+## 5. Replace inconsistent values
+
+```python
+df["Department"] = df["Department"].replace({
+    "COMPUTER SCIENCE": "CSE",
+    "CS": "CSE"
+})
+```
+
+Replacement is useful for standardizing known variations. First inspect actual unique values so you do not replace a legitimate category by mistake.
+
+## 6. Detect duplicate rows
+
+```python
+df.duplicated()
+df.duplicated().sum()
+```
+
+To remove duplicate rows:
+
+```python
+clean = df.drop_duplicates()
+```
+
+By default, Pandas considers all columns when checking duplicates and keeps the first occurrence. You can use `subset=["Name", "Department"]` to check selected columns and `keep="last"` to keep the last occurrence.
+
+Before dropping duplicates, decide what makes a record genuinely duplicate. Two people can share the same name.
+
+## 7. Rename columns
+
+```python
+df = df.rename(columns={
+    "Name": "student_name",
+    "Marks": "score"
+})
+```
+
+Clear and consistent column names make code easier to read. You can also standardize all names using string operations on `df.columns`.
+
+## 8. Remove irrelevant columns or rows
+
+```python
+df = df.drop(columns=["Age"])
+df = df.drop(index=[0])
+```
+
+`drop` returns a new object by default. Assign the result if you want to keep the change.
+
+## 9. Correct invalid values
+
+Suppose marks must be between 0 and 100:
+
+```python
+invalid = df[~df["Marks"].between(0, 100)]
+print(invalid)
+```
+
+Do not automatically replace invalid values. Find the source of the problem, then decide whether to correct, mark as missing or remove the record.
+
+## 10. Build a cleaning pipeline
+
+```python
+df["Name"] = df["Name"].str.strip().str.title()
+df["Department"] = df["Department"].str.strip().str.upper()
 df = df.drop_duplicates()
 ```
 
-## 4. Real-world use
+This is a small example. For larger projects, document each cleaning decision and keep the raw data unchanged.
 
-Poor-quality inputs can mislead a model and reduce performance.
+## 11. Common mistakes
 
-## 5. ML / AI connection
+- Removing duplicates without deciding what defines a duplicate.
+- Replacing categories before inspecting their unique values.
+- Deleting unusual values without checking whether they are valid outliers.
+- Forgetting to assign the result of `drop` or `rename`.
+- Cleaning the original raw file rather than preserving an untouched copy.
 
-Poor-quality inputs can mislead a model and reduce performance.
+## 12. Practice
 
-## 6. Tips and shortcuts
+Create a DataFrame with inconsistent spaces, text case, duplicate rows and invalid marks. Clean the text, identify duplicates, standardize categories and flag invalid marks. Explain every change you make.
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
-
-## 7. Common mistakes
-
-- Inspect before dropping rows or columns. Cleaning decisions should follow domain meaning, not convenience.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
-
-## 8. Quick revision
-
-- **Remember:** Cleaning fixes inaccurate, duplicated or inconsistent records before analysis.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Poor-quality inputs can mislead a model and reduce performance.
-
-## 9. Practice
-
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
-
----
-
-[← Back to Pandas chapter index](README.md) · [Master Notes home](../README.md)
+**Checkpoint:** A good cleaning step should have a reason. Never clean data only to make the table look neat.
