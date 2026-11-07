@@ -1,57 +1,123 @@
-# Histograms and Distributions
+# 05 — Histograms and Distributions
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Understand how numerical data is distributed and how histogram bins affect what you see.
 
-## 1. Concept
+## 1. What is a distribution?
 
-A histogram groups numeric observations into bins to show the shape of a distribution.
+A distribution describes how values are spread. It can show:
+- where values are concentrated,
+- how wide the spread is,
+- whether values are symmetric or skewed,
+- whether there are multiple peaks,
+- whether unusual observations exist.
 
-## 2. Why it matters
+For example, a list of exam marks tells you each student's score. A histogram helps you see how the scores are distributed across ranges.
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
+## 2. What is a histogram?
 
-## 3. Syntax and small example
+A histogram groups numerical values into intervals called **bins** and displays the number of observations in each interval.
 
 ```python
-import seaborn as sns
 import matplotlib.pyplot as plt
 
-sns.histplot(data=df, x="age", bins=20, kde=True)
+marks = [35, 40, 45, 50, 55, 60, 60, 65, 70, 75, 80, 85]
+
+plt.hist(marks, bins=5, edgecolor="black")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+plt.title("Distribution of Exam Marks")
 plt.show()
 ```
 
-## 4. Real-world use
+- x-axis: value intervals.
+- y-axis: frequency (count) by default.
+- bars touch because the bins represent continuous intervals.
 
-Inspect feature ranges, skewness and unusual distributions before choosing transformations.
+## 3. What are bins?
 
-## 5. ML / AI connection
+A bin is an interval that receives values within its boundaries. The number and width of bins affect the appearance of a histogram.
 
-Inspect feature ranges, skewness and unusual distributions before choosing transformations.
+Too few bins can hide structure. Too many bins can make random variation look like meaningful patterns.
 
-## 6. Tips and shortcuts
+```python
+plt.hist(marks, bins=3)
+plt.show()
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+plt.hist(marks, bins=10)
+plt.show()
+```
 
-## 7. Common mistakes
+Compare both charts and notice how the visible detail changes.
 
-- Bin width changes the appearance. Compare distributions using sensible, consistent bins.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+## 4. Set explicit bin edges
 
-## 8. Quick revision
+```python
+bins = [0, 20, 40, 60, 80, 100]
+plt.hist(marks, bins=bins, edgecolor="black")
+plt.show()
+```
 
-- **Remember:** A histogram groups numeric observations into bins to show the shape of a distribution.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Inspect feature ranges, skewness and unusual distributions before choosing transformations.
+Explicit edges are useful when intervals have real-world meaning, such as mark bands or age groups.
 
-## 9. Practice
+## 5. Frequency versus density
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+By default, histogram bar heights represent counts. With `density=True`, the histogram is normalized so the total area under the bars is 1.
 
----
+```python
+plt.hist(marks, bins=5, density=True)
+plt.ylabel("Density")
+plt.show()
+```
 
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+Density is not the same as raw count. It is useful when comparing distributions with different sample sizes.
+
+## 6. Understand distribution shape
+
+- **Symmetric:** left and right sides look similar.
+- **Right-skewed:** long tail extends toward larger values.
+- **Left-skewed:** long tail extends toward smaller values.
+- **Unimodal:** one main peak.
+- **Bimodal:** two main peaks.
+- **Uniform-like:** values appear relatively evenly spread.
+
+Do not label a distribution based on one bar. Consider the overall shape and sample size.
+
+## 7. Histogram versus bar chart
+
+| Histogram | Bar chart |
+|---|---|
+| Numerical continuous or measured data | Categories |
+| Bins represent intervals | Bars represent named groups |
+| Bars usually touch | Bars usually have gaps |
+| Order follows numeric scale | Order can be chosen or meaningful |
+
+## 8. Add a KDE curve with Seaborn
+
+```python
+import seaborn as sns
+import pandas as pd
+
+df = pd.DataFrame({"Marks": marks})
+sns.histplot(data=df, x="Marks", bins=5, kde=True)
+plt.show()
+```
+
+KDE (kernel density estimation) creates a smoothed estimate of the distribution. It is a guide, not a direct count of observations, and can be misleading with very small samples or unsuitable bandwidths.
+
+## 9. Common mistakes
+
+- Using too few or too many bins.
+- Confusing histogram with a category bar chart.
+- Interpreting density as count.
+- Comparing histograms with different bin edges without care.
+- Assuming a smooth KDE curve represents the exact data distribution.
+
+## 10. Practice
+
+1. Plot a histogram of 100 exam marks.
+2. Compare 5 bins and 20 bins.
+3. Use explicit mark intervals from 0 to 100.
+4. Plot a density histogram.
+5. Identify whether a sample is symmetric, skewed or multimodal.
+
+**Checkpoint:** A histogram answers “how are numerical values distributed?”, and bin choice controls the level of detail.

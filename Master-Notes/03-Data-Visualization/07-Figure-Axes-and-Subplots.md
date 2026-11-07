@@ -1,61 +1,110 @@
-# Figure, Axes and Subplots
+# 07 — Figure, Axes and Subplots in Matplotlib
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Understand Matplotlib's object model and build layouts containing multiple plots.
 
-## 1. Concept
+## 1. Figure versus Axes versus Axis
 
-A Figure can contain multiple Axes. Subplots make related comparisons easier to read together.
+These names sound similar but mean different things:
+- **Figure:** the entire canvas.
+- **Axes:** one plotting area that can contain data, labels, title and legend.
+- **Axis:** the x-axis or y-axis scale, ticks and tick labels.
 
-## 2. Why it matters
+A single Figure can contain many Axes.
 
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+## 2. Create one Figure and one Axes
 
 ```python
 import matplotlib.pyplot as plt
 
-fig, axes = plt.subplots(1, 2, figsize=(9, 3), sharey=True)
-axes[0].hist(train_values)
-axes[0].set_title("Train")
-axes[1].hist(test_values)
-axes[1].set_title("Test")
+fig, ax = plt.subplots()
+ax.plot([1, 2, 3], [10, 20, 15])
+ax.set_title("Simple Plot")
+plt.show()
+```
+
+`plt.subplots()` returns a Figure and an Axes object. The Axes is where most plot customization happens.
+
+## 3. Create a 1-by-2 subplot layout
+
+```python
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+axes[0].plot([1, 2, 3], [2, 4, 3])
+axes[0].set_title("Line Plot")
+
+axes[1].bar(["A", "B", "C"], [5, 3, 7])
+axes[1].set_title("Bar Plot")
+
 fig.tight_layout()
 plt.show()
 ```
 
-## 4. Real-world use
+The first argument is number of rows; the second is number of columns. With a 1-by-2 layout, `axes` is a one-dimensional array of two Axes objects.
 
-Compare train/test distributions and multiple features using consistent scales.
+## 4. Create a 2-by-2 layout
 
-## 5. ML / AI connection
+```python
+fig, axes = plt.subplots(2, 2, figsize=(9, 7))
 
-Compare train/test distributions and multiple features using consistent scales.
+axes[0, 0].plot([1, 2, 3], [2, 4, 3])
+axes[0, 1].scatter([1, 2, 3], [3, 2, 5])
+axes[1, 0].bar(["A", "B"], [4, 7])
+axes[1, 1].hist([1, 2, 2, 3, 3, 3, 4])
 
-## 6. Tips and shortcuts
+fig.tight_layout()
+plt.show()
+```
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+For a 2-D layout, use `axes[row, column]`.
 
-## 7. Common mistakes
+## 5. Share axes
 
-- Use `axes.flat` or `axes.ravel()` when iterating over a grid of axes.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+```python
+fig, axes = plt.subplots(1, 2, sharey=True)
+```
 
-## 8. Quick revision
+Sharing an axis can make comparisons fairer because the plots use the same scale. Use it when the same units and range are meaningful across panels.
 
-- **Remember:** A Figure can contain multiple Axes. Subplots make related comparisons easier to read together.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Compare train/test distributions and multiple features using consistent scales.
+## 6. Figure-level and Axes-level titles
 
-## 9. Practice
+```python
+fig, axes = plt.subplots(1, 2)
+fig.suptitle("Student Performance")
+axes[0].set_title("Math")
+axes[1].set_title("Science")
+```
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+The Figure title describes the whole layout; each Axes title describes its own chart.
 
----
+## 7. Layout spacing
 
-[← Back to Data Visualization chapter index](README.md) · [Master Notes home](../README.md)
+- `fig.tight_layout()`: automatically adjusts spacing to reduce overlap.
+- `constrained_layout=True` in `plt.subplots`: another layout engine that can manage spacing.
+
+```python
+fig, axes = plt.subplots(2, 2, constrained_layout=True)
+```
+
+Do not combine layout engines unnecessarily. Check the result after adding long labels or legends.
+
+## 8. Save the full figure
+
+```python
+fig.savefig("dashboard.png", dpi=300, bbox_inches="tight")
+```
+
+Call save on the Figure object to export the entire multi-plot layout.
+
+## 9. Common mistakes
+
+- Confusing the Axes object with the x/y Axis.
+- Indexing a 1-D axes array as if it were 2-D.
+- Forgetting to set a title or labels for each subplot.
+- Overlapping titles and tick labels.
+- Saving only one plot instead of the complete Figure.
+
+## 10. Practice
+
+Create a 2-by-2 dashboard for a student dataset: histogram of marks, bar chart of department counts, scatter plot of study hours versus marks, and box plot by department. Add a figure-level title and ensure labels do not overlap.
+
+**Checkpoint:** Understand that a Figure is the canvas and each Axes is an individual plotting area.
