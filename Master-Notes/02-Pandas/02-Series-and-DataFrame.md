@@ -1,58 +1,155 @@
-# Series and DataFrame
+# 02 — Series and DataFrame in Detail
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Build Series and DataFrames from common Python objects, understand labels and inspect their structure.
 
-## 1. Concept
+## 1. Series: one labeled dimension
 
-A Series is one-dimensional; a DataFrame is two-dimensional and contains aligned columns.
-
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+A Series is a one-dimensional collection of values with an index.
 
 ```python
 import pandas as pd
 
-s = pd.Series([10, 20, 30], name="marks")
-df = pd.DataFrame({"marks": s, "passed": [False, True, True]})
-print(df.shape)
-print(df["marks"])
+marks = pd.Series([80, 90, 75], index=["Asha", "Ravi", "Maya"])
+print(marks)
 ```
 
-## 4. Real-world use
+Output:
+```text
+Asha    80
+Ravi    90
+Maya    75
+dtype: int64
+```
 
-Understand the table structure that will be cleaned and converted into model features.
+The left side contains index labels; the right side contains values.
 
-## 5. ML / AI connection
+## 2. Create Series in different ways
 
-Understand the table structure that will be cleaned and converted into model features.
+From a list:
+```python
+pd.Series([10, 20, 30])
+```
 
-## 6. Tips and shortcuts
+From a dictionary (keys become index labels):
+```python
+pd.Series({"Math": 90, "Python": 85, "AI": 95})
+```
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+With a custom index:
+```python
+pd.Series([10, 20], index=["first", "second"])
+```
 
-## 7. Common mistakes
+## 3. DataFrame: a table of labeled columns
 
-- `df['col']` usually returns a Series; `df[['col']]` returns a DataFrame.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+```python
+students = pd.DataFrame({
+    "Name": ["Asha", "Ravi", "Maya"],
+    "Age": [19, 20, 19],
+    "Marks": [80, 90, 75]
+})
+print(students)
+```
 
-## 8. Quick revision
+Each column has its own name and dtype. A DataFrame can contain numerical, text, Boolean, date and other data types in different columns.
 
-- **Remember:** A Series is one-dimensional; a DataFrame is two-dimensional and contains aligned columns.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Understand the table structure that will be cleaned and converted into model features.
+## 4. Create a DataFrame from a list of dictionaries
 
-## 9. Practice
+```python
+records = [
+    {"Name": "Asha", "Marks": 80},
+    {"Name": "Ravi", "Marks": 90},
+    {"Name": "Maya", "Marks": 75}
+]
+df = pd.DataFrame(records)
+print(df)
+```
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+Each dictionary describes one row. If a key is absent in one record, Pandas fills that position with a missing value.
 
----
+## 5. Understand index and columns
 
-[← Back to Pandas chapter index](README.md) · [Master Notes home](../README.md)
+```python
+print(df.index)
+print(df.columns)
+print(df.values)
+```
+
+- `index`: row labels.
+- `columns`: column labels.
+- `values`: underlying values as an array-like representation.
+
+For mixed dtypes, `df.to_numpy()` may produce an object array or a common dtype. Prefer selecting a specific numeric column if you need a clean numeric NumPy array.
+
+## 6. Select a Series or DataFrame
+
+```python
+df["Marks"]       # Series
+df[["Marks"]]     # DataFrame
+df[["Name", "Marks"]]  # DataFrame with two columns
+```
+
+The number of square brackets changes the output type:
+- one column label in one bracket -> Series,
+- a list of labels inside brackets -> DataFrame.
+
+## 7. Set and reset an index
+
+```python
+df = df.set_index("Name")
+print(df)
+```
+
+The Name column becomes the row index. By default, it is removed from the ordinary columns.
+
+Restore a default integer index:
+
+```python
+df = df.reset_index()
+```
+
+Use `drop=True` if you want to discard the old index instead of adding it as a column.
+
+## 8. DataFrame shape and dimensions
+
+```python
+print(df.shape)  # (rows, columns)
+print(df.ndim)   # 2
+print(df.size)   # rows * columns
+```
+
+A DataFrame with 5 rows and 3 columns has shape `(5, 3)` and 15 total cells.
+
+## 9. Data types
+
+```python
+print(df.dtypes)
+```
+
+A DataFrame does not have one universal dtype. Each column can have its own dtype. Use `astype()` to convert a column when the conversion is valid.
+
+## 10. Copying a DataFrame
+
+```python
+copy_df = df.copy()
+```
+
+A copy is useful when you want to experiment without modifying the original DataFrame. Pandas has different copy/view behaviors depending on the operation and version; use explicit copies when independent data is important.
+
+## 11. Common mistakes
+
+- Expecting `df["col"]` and `df[["col"]]` to have the same type.
+- Assuming dictionary keys always become columns when the data is shaped differently.
+- Forgetting that `set_index` returns a new DataFrame unless assigned or used with an in-place option.
+- Treating `values` as guaranteed to preserve every original column dtype.
+- Assuming an index must be unique.
+
+## 12. Practice
+
+1. Create a Series of five subject marks with subject names as index.
+2. Create a DataFrame from a dictionary of lists.
+3. Create the same table from a list of dictionaries.
+4. Select one column as a Series and as a DataFrame.
+5. Set a student ID column as the index and reset it.
+
+**Checkpoint:** You should be able to choose the correct structure for one column versus a full table.
