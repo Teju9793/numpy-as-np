@@ -1,57 +1,137 @@
-# Pivot Tables and Crosstab
+# 11 — Pivot Tables and Crosstab in Pandas
 
-> **Level:** Beginner → Intermediate · **Priority:** Core
+> **Goal:** Summarize data across categories using pivot tables and frequency tables.
 
-## 1. Concept
+## 1. Why pivot tables?
 
-Reshape data to compare categories across rows and columns or summarize groups.
+A long transaction table may contain one row per sale. You may want a compact report showing total sales by city and product. A pivot table turns row-level records into a summary matrix.
 
-## 2. Why it matters
-
-This topic helps you write clearer, safer data code and understand what happens to your data before it reaches a model.
-
-## 3. Syntax and small example
+## 2. Sample data
 
 ```python
 import pandas as pd
 
-df = pd.DataFrame({"city": ["A", "A", "B"], "type": ["X", "Y", "X"], "sales": [10, 20, 15]})
-print(pd.pivot_table(df, values="sales", index="city", columns="type", aggfunc="sum"))
-print(pd.crosstab(df["city"], df["type"]))
+df = pd.DataFrame({
+    "City": ["Bengaluru", "Bengaluru", "Tumkur", "Tumkur", "Mysuru"],
+    "Product": ["Book", "Pen", "Book", "Pen", "Book"],
+    "Sales": [500, 200, 300, 100, 400]
+})
 ```
 
-## 4. Real-world use
+## 3. Create a pivot table
 
-Explore category combinations and identify patterns before feature selection.
+```python
+table = pd.pivot_table(
+    df,
+    values="Sales",
+    index="City",
+    columns="Product",
+    aggfunc="sum"
+)
+print(table)
+```
 
-## 5. ML / AI connection
+Meaning of parameters:
+- `data`: source DataFrame.
+- `values`: values to summarize.
+- `index`: categories displayed as rows.
+- `columns`: categories displayed as columns.
+- `aggfunc`: calculation, such as sum, mean or count.
 
-Explore category combinations and identify patterns before feature selection.
+## 4. Change the aggregation
 
-## 6. Tips and shortcuts
+```python
+pd.pivot_table(
+    df,
+    values="Sales",
+    index="City",
+    columns="Product",
+    aggfunc="mean"
+)
+```
 
-- Inspect the result immediately with `print()`, `.shape`, `.dtype` or a small sample.
-- Prefer readable expressions over clever one-liners.
-- Test assumptions on a tiny example before applying an operation to a full dataset.
+The same layout can show average sales rather than total sales.
 
-## 7. Common mistakes
+## 5. Handle missing combinations
 
-- `pivot` requires unique index/column combinations; use `pivot_table` when aggregation is needed.
-- Forgetting to check the shape, type or index of the result.
-- Applying a learned transformation before splitting train/test data can cause data leakage.
+Not every city may sell every product. A pivot table can contain missing cells for combinations with no records.
 
-## 8. Quick revision
+```python
+pd.pivot_table(
+    df,
+    values="Sales",
+    index="City",
+    columns="Product",
+    aggfunc="sum",
+    fill_value=0
+)
+```
 
-- **Remember:** Reshape data to compare categories across rows and columns or summarize groups.
-- **Use it when:** you need the operation described in this chapter.
-- **ML relevance:** Explore category combinations and identify patterns before feature selection.
+Use `fill_value=0` only if an absent combination should logically be represented as zero. Missing data and a true zero are not always the same thing.
 
-## 9. Practice
+## 6. Add margins
 
-1. Explain this concept in your own words without looking at the definition.
-2. Change the example values or data shape and predict the output before running it.
-3. Identify one place this operation could appear in a real ML preprocessing workflow.
+```python
+pd.pivot_table(
+    df,
+    values="Sales",
+    index="City",
+    columns="Product",
+    aggfunc="sum",
+    margins=True
+)
+```
 
----
+Margins add row and column totals, commonly labeled "All".
 
-[← Back to Pandas chapter index](README.md) · [Master Notes home](../README.md)
+## 7. Crosstab — frequency counts
+
+`pd.crosstab` counts combinations of categories:
+
+```python
+students = pd.DataFrame({
+    "Department": ["CSE", "CSE", "ECE", "ECE", "CSE"],
+    "Result": ["Pass", "Fail", "Pass", "Pass", "Pass"]
+})
+
+print(pd.crosstab(students["Department"], students["Result"]))
+```
+
+Rows represent Department, columns represent Result, and each cell counts observations.
+
+## 8. Normalize crosstab
+
+```python
+pd.crosstab(
+    students["Department"],
+    students["Result"],
+    normalize="index"
+)
+```
+
+This shows row-wise proportions. Other normalization choices include columns or the whole table. Use percentages when comparing groups of different sizes.
+
+## 9. Pivot versus pivot_table
+
+- `pivot()` reshapes data and requires each index/column combination to identify one value. It does not aggregate duplicates.
+- `pivot_table()` can aggregate multiple rows for the same combination using `aggfunc`.
+
+If duplicate combinations exist, `pivot_table` is usually the appropriate summary tool.
+
+## 10. Common mistakes
+
+- Confusing `pivot` with `pivot_table`.
+- Forgetting to specify the aggregation function.
+- Filling missing combinations with zero without checking their meaning.
+- Interpreting raw counts when group sizes differ substantially.
+- Forgetting that a pivot table can produce hierarchical indexes or columns.
+
+## 11. Practice
+
+1. Create a sales pivot table by city and product.
+2. Change sum to mean.
+3. Add grand totals.
+4. Create a crosstab of department and pass/fail.
+5. Normalize the crosstab by row and explain the result.
+
+**Checkpoint:** Use pivot tables to summarize numeric values and crosstab to count category combinations.
