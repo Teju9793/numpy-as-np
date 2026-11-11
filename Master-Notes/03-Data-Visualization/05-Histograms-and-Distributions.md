@@ -31,7 +31,7 @@ plt.show()
 
 **Visual output preview — example 1**
 
-![histogram](./outputs/histogram.svg)
+![Code-matched output preview](./outputs/ch05-marks-hist.svg)
 
 **What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
@@ -55,7 +55,7 @@ plt.show()
 
 **Visual output preview — example 2**
 
-![histogram](./outputs/histogram.svg)
+![Code-matched output preview](./outputs/ch05-marks-3bins.svg)
 
 **What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
@@ -71,7 +71,7 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![histogram](./outputs/histogram.svg)
+![Code-matched output preview](./outputs/ch05-explicit-bins.svg)
 
 **What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
@@ -89,7 +89,7 @@ plt.show()
 
 **Visual output preview — example 4**
 
-![histogram](./outputs/histogram.svg)
+![Code-matched output preview](./outputs/ch05-density-hist.svg)
 
 **What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
@@ -128,7 +128,7 @@ plt.show()
 
 **Visual output preview — example 5**
 
-![histogram](./outputs/histogram.svg)
+![Code-matched output preview](./outputs/ch05-marks-hist.svg)
 
 **What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
