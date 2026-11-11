@@ -57,7 +57,7 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![heatmap](./outputs/heatmap.svg)
+![Example-specific chart preview](./outputs/ch09-correlation-heatmap.svg)
 
 **What to notice:** Notice how the colour intensity represents the value in each cell; read the annotations for exact values.
 
@@ -81,7 +81,7 @@ plt.show()
 
 **Visual output preview — example 4**
 
-![heatmap](./outputs/heatmap.svg)
+![Example-specific chart preview](./outputs/ch09-correlation-heatmap.svg)
 
 **What to notice:** Notice how the colour intensity represents the value in each cell; read the annotations for exact values.
 
@@ -104,7 +104,7 @@ plt.show()
 
 **Visual output preview — example 5**
 
-![scatter plot](./outputs/scatter-plot.svg)
+![Example-specific chart preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
