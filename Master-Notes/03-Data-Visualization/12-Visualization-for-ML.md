@@ -24,12 +24,24 @@ sns.histplot(data=df, x="Target", kde=True)
 plt.show()
 ```
 
+**Visual output preview**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show the frequency or density in each interval. Notice the overall shape and where values are concentrated.
+
 For classification, inspect class counts:
 
 ```python
 sns.countplot(data=df, x="TargetClass")
 plt.show()
 ```
+
+**Visual output preview**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** Compare the category heights and check whether the chart shows counts or a summarized value.
 
 A highly imbalanced class distribution can affect model training and evaluation. Accuracy alone may be misleading.
 
@@ -41,6 +53,18 @@ sns.boxplot(data=df, x="Feature1")
 plt.show()
 ```
 
+**Visual output preview**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show the frequency or density in each interval. Notice the overall shape and where values are concentrated.
+
+**Visual output preview**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare the median and spread. Distant points can be possible outliers and should be investigated.
+
 Check whether values are skewed, contain unusual ranges or require transformations. Outliers are not automatically errors.
 
 ## 4. Feature relationships
@@ -49,6 +73,12 @@ Check whether values are skewed, contain unusual ranges or require transformatio
 sns.scatterplot(data=df, x="Feature1", y="Feature2", hue="TargetClass")
 plt.show()
 ```
+
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
 
 This may reveal clusters or class separation. If many points overlap, use transparency or a sampling strategy.
 
@@ -63,6 +93,18 @@ cm = confusion_matrix(y_test, y_pred)
 ConfusionMatrixDisplay(confusion_matrix=cm).plot()
 plt.show()
 ```
+
+**Visual output preview**
+
+![confusion matrix](./outputs/confusion-matrix.svg)
+
+**What to notice:** The diagonal shows correct predictions; off-diagonal cells show misclassifications.
+
+**Visual output preview**
+
+![actual predicted](./outputs/actual-predicted.svg)
+
+**What to notice:** Predictions closer to the diagonal are closer to the actual values.
 
 For binary classification:
 - true positive: positive correctly predicted,
@@ -90,6 +132,18 @@ plt.title("Residual Plot")
 plt.show()
 ```
 
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
+
+**Visual output preview**
+
+![residual plot](./outputs/residual-plot.svg)
+
+**What to notice:** Look for a random band around zero. A curve or changing spread may indicate model errors.
+
 A pattern in residuals may suggest nonlinearity, changing variance or missing structure. A random cloud around zero is often desirable, but it is not the only diagnostic.
 
 ## 7. Actual versus predicted
@@ -101,6 +155,18 @@ plt.ylabel("Predicted")
 plt.title("Actual vs Predicted")
 plt.show()
 ```
+
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
+
+**Visual output preview**
+
+![actual predicted](./outputs/actual-predicted.svg)
+
+**What to notice:** Predictions closer to the diagonal are closer to the actual values.
 
 Perfect predictions would lie on the diagonal (y=x). Add a reference line when the axes share comparable scales.
 
