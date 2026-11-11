@@ -22,7 +22,7 @@ plt.show()
 
 **Visual output preview — example 1**
 
-![bar chart](./outputs/bar-chart.svg)
+![Department chart output 1](./outputs/ch04-department-marks.svg)
 
 **What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
@@ -40,7 +40,7 @@ plt.show()
 
 **Visual output preview — example 2**
 
-![bar chart](./outputs/bar-chart.svg)
+![Department chart output 2](./outputs/ch04-department-marks.svg)
 
 **What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
@@ -66,14 +66,14 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![bar chart](./outputs/bar-chart.svg)
+![Department chart output 3](./outputs/ch04-count-departments.svg)
 
 **What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
 
 **Visual output preview — example 3**
 
-![line plot](./outputs/line-plot.svg)
+![Department chart output 4](./outputs/ch04-department-marks.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -115,7 +115,7 @@ plt.show()
 
 **Visual output preview — example 4**
 
-![bar chart](./outputs/bar-chart.svg)
+![Department chart output 5](./outputs/ch04-department-marks.svg)
 
 **What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
@@ -135,7 +135,7 @@ plt.show()
 
 **Visual output preview — example 5**
 
-![bar chart](./outputs/bar-chart.svg)
+![Department chart output 6](./outputs/ch04-department-marks.svg)
 
 **What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
