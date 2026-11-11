@@ -24,6 +24,8 @@ plt.grid(alpha=0.3)
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/line-plot.svg)
+
 **How to read it:** x-axis = week; y-axis = marks. The upward line shows marks increased in this example.
 
 **ML use:** training loss across epochs, time trends and sequential measurements.
@@ -42,6 +44,8 @@ plt.xlabel("Department")
 plt.ylabel("Average Marks")
 plt.show()
 ~~~
+
+![Rendered graph output preview](./outputs/bar-chart.svg)
 
 **How to read it:** each bar is a category. Taller bars mean larger values. CSE has the highest average here.
 
@@ -62,6 +66,8 @@ plt.ylabel("Number of Students")
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/histogram.svg)
+
 **How to read it:** x-axis contains mark intervals (bins); y-axis shows the number of observations in each interval.
 
 **ML use:** inspect feature distributions, skewness, unusual ranges and possible multiple peaks.
@@ -79,6 +85,8 @@ plt.ylabel("Marks")
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/scatter-plot.svg)
+
 **How to read it:** each dot is one student. The upward pattern suggests a positive association in this small sample. Correlation does not prove causation.
 
 **ML use:** relationships between numeric features, clusters and nonlinear patterns.
@@ -94,6 +102,8 @@ plt.title("Marks Spread by Class")
 plt.ylabel("Marks")
 plt.show()
 ~~~
+
+![Rendered graph output preview](./outputs/box-plot.svg)
 
 **How to read it:**
 - Middle line = median.
@@ -121,6 +131,8 @@ plt.title("Feature Correlation Heatmap")
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/heatmap.svg)
+
 **How to read it:** correlation ranges from -1 to +1.
 
 | Value | Meaning |
@@ -141,6 +153,8 @@ plt.title("Confusion Matrix")
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/confusion-matrix.svg)
+
 It compares actual classes with predicted classes and helps identify false positives and false negatives.
 
 ## 8. Actual versus predicted — regression results
@@ -156,6 +170,8 @@ plt.title("Actual vs Predicted")
 plt.show()
 ~~~
 
+![Rendered graph output preview](./outputs/actual-predicted.svg)
+
 Points close to the diagonal represent predictions close to actual values.
 
 ## 9. Residual plot — inspect model errors
@@ -169,6 +185,8 @@ plt.ylabel("Residual")
 plt.title("Residual Plot")
 plt.show()
 ~~~
+
+![Rendered graph output preview](./outputs/residual-plot.svg)
 
 Residual = actual − predicted. Patterns may reveal issues that a single error score hides.
 
