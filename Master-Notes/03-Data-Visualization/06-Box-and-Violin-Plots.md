@@ -35,6 +35,12 @@ plt.title("Exam Marks")
 plt.show()
 ```
 
+**Visual output preview — example 1**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
+
 ## 4. What do whiskers mean?
 
 In the common Tukey box plot, whiskers extend to the most extreme observations within:
@@ -60,6 +66,12 @@ sns.boxplot(data=df, x="Department", y="Marks")
 plt.show()
 ```
 
+**Visual output preview — example 2**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
+
 This helps compare medians and spreads between departments.
 
 ## 6. Violin plot
@@ -70,6 +82,12 @@ A violin plot combines a distribution-density estimate with summary information.
 sns.violinplot(data=df, x="Department", y="Marks", inner="quart")
 plt.show()
 ```
+
+**Visual output preview — example 3**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
 
 A wide section means the estimated density is higher around those values. The shape depends on smoothing choices and sample size.
 
