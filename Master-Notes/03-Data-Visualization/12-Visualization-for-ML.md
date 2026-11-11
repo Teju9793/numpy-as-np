@@ -26,7 +26,7 @@ plt.show()
 
 **Visual output preview**
 
-![histogram](./outputs/histogram.svg)
+![Example-specific chart preview](./outputs/ch05-marks-hist.svg)
 
 **What to notice:** Bars show the frequency or density in each interval. Notice the overall shape and where values are concentrated.
 
@@ -39,7 +39,7 @@ plt.show()
 
 **Visual output preview**
 
-![bar chart](./outputs/bar-chart.svg)
+![Example-specific chart preview](./outputs/ch04-count-departments.svg)
 
 **What to notice:** Compare the category heights and check whether the chart shows counts or a summarized value.
 
@@ -55,13 +55,13 @@ plt.show()
 
 **Visual output preview**
 
-![histogram](./outputs/histogram.svg)
+![Example-specific chart preview](./outputs/ch06-single-box.svg)
 
 **What to notice:** Bars show the frequency or density in each interval. Notice the overall shape and where values are concentrated.
 
 **Visual output preview**
 
-![box plot](./outputs/box-plot.svg)
+![Example-specific chart preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Compare the median and spread. Distant points can be possible outliers and should be investigated.
 
@@ -76,7 +76,7 @@ plt.show()
 
 **Visual output preview**
 
-![scatter plot](./outputs/scatter-plot.svg)
+![Example-specific chart preview](./outputs/ch12-confusion-matrix.svg)
 
 **What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
 
@@ -96,13 +96,13 @@ plt.show()
 
 **Visual output preview**
 
-![confusion matrix](./outputs/confusion-matrix.svg)
+![Example-specific chart preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** The diagonal shows correct predictions; off-diagonal cells show misclassifications.
 
 **Visual output preview**
 
-![actual predicted](./outputs/actual-predicted.svg)
+![Example-specific chart preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Predictions closer to the diagonal are closer to the actual values.
 
@@ -134,13 +134,13 @@ plt.show()
 
 **Visual output preview**
 
-![scatter plot](./outputs/scatter-plot.svg)
+![Example-specific chart preview](./outputs/undefined)
 
 **What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
 
 **Visual output preview**
 
-![residual plot](./outputs/residual-plot.svg)
+![Example-specific chart preview](./outputs/undefined)
 
 **What to notice:** Look for a random band around zero. A curve or changing spread may indicate model errors.
 
@@ -158,13 +158,13 @@ plt.show()
 
 **Visual output preview**
 
-![scatter plot](./outputs/scatter-plot.svg)
+![Example-specific chart preview](./outputs/undefined)
 
 **What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
 
 **Visual output preview**
 
-![actual predicted](./outputs/actual-predicted.svg)
+![Example-specific chart preview](./outputs/undefined)
 
 **What to notice:** Predictions closer to the diagonal are closer to the actual values.
 
