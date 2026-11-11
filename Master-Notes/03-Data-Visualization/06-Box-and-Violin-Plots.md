@@ -37,7 +37,7 @@ plt.show()
 
 **Visual output preview — example 1**
 
-![box plot](./outputs/box-plot.svg)
+![Example-specific chart preview](./outputs/ch06-single-box.svg)
 
 **What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
 
@@ -68,7 +68,7 @@ plt.show()
 
 **Visual output preview — example 2**
 
-![box plot](./outputs/box-plot.svg)
+![Example-specific chart preview](./outputs/ch06-department-box.svg)
 
 **What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
 
@@ -85,7 +85,7 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![box plot](./outputs/box-plot.svg)
+![Example-specific chart preview](./outputs/ch06-department-box.svg)
 
 **What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
 
