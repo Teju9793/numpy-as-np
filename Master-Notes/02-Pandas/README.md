@@ -20,6 +20,7 @@ Inspect, clean, transform and prepare tabular data.
 | 12 | [Apply, Map and Vectorization](12-Apply-Map-and-Vectorization.md) | Core |
 | 13 | [Feature Engineering](13-Feature-Engineering.md) | Core |
 | 14 | [Data Export and ML Preparation](14-Data-Export-and-ML-Preparation.md) | Core |
+| 15 | [Practical Examples with Outputs](15-Pandas-Practical-Outputs-for-ML.md) | **Practice** |
 
 ## Revision focus
 
@@ -27,5 +28,6 @@ Inspect, clean, transform and prepare tabular data.
 - Clean missing and inconsistent data
 - Group, merge and transform
 - Engineer features without leakage
+- Practice common operations with expected outputs
 
 [← Back to Master Notes](../README.md)
