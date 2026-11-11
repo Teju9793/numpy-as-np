@@ -22,6 +22,12 @@ ax.set_title("Simple Plot")
 plt.show()
 ```
 
+**Visual output preview — example 1**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 `plt.subplots()` returns a Figure and an Axes object. The Axes is where most plot customization happens.
 
 ## 3. Create a 1-by-2 subplot layout
@@ -39,6 +45,12 @@ fig.tight_layout()
 plt.show()
 ```
 
+**Visual output preview — example 2**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
+
 The first argument is number of rows; the second is number of columns. With a 1-by-2 layout, `axes` is a one-dimensional array of two Axes objects.
 
 ## 4. Create a 2-by-2 layout
@@ -55,6 +67,26 @@ fig.tight_layout()
 plt.show()
 ```
 
+**Visual output preview — example 3**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
+
+
+**Visual output preview — example 3**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
+
+
+**Visual output preview — example 3**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
+
 For a 2-D layout, use `axes[row, column]`.
 
 ## 5. Share axes
@@ -62,6 +94,12 @@ For a 2-D layout, use `axes[row, column]`.
 ```python
 fig, axes = plt.subplots(1, 2, sharey=True)
 ```
+
+**Visual output preview — example 4**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Each Axes is a separate plotting area inside the Figure. In a multi-panel layout, read each panel title and axis labels.
 
 Sharing an axis can make comparisons fairer because the plots use the same scale. Use it when the same units and range are meaningful across panels.
 
@@ -74,6 +112,12 @@ axes[0].set_title("Math")
 axes[1].set_title("Science")
 ```
 
+**Visual output preview — example 5**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Each Axes is a separate plotting area inside the Figure. In a multi-panel layout, read each panel title and axis labels.
+
 The Figure title describes the whole layout; each Axes title describes its own chart.
 
 ## 7. Layout spacing
@@ -84,6 +128,12 @@ The Figure title describes the whole layout; each Axes title describes its own c
 ```python
 fig, axes = plt.subplots(2, 2, constrained_layout=True)
 ```
+
+**Visual output preview — example 6**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Each Axes is a separate plotting area inside the Figure. In a multi-panel layout, read each panel title and axis labels.
 
 Do not combine layout engines unnecessarily. Check the result after adding long labels or legends.
 
