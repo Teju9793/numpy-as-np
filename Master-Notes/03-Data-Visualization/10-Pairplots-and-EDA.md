@@ -48,12 +48,30 @@ sns.boxplot(data=df, x="Age")
 plt.show()
 ```
 
+**Visual output preview**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show the frequency or density in each interval. Notice the overall shape and where values are concentrated.
+
+**Visual output preview**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare the median and spread. Distant points can be possible outliers and should be investigated.
+
 For a categorical variable:
 ```python
 sns.countplot(data=df, x="Department")
 plt.xticks(rotation=45)
 plt.show()
 ```
+
+**Visual output preview**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** Compare the category heights and check whether the chart shows counts or a summarized value.
 
 ## 4. Bivariate analysis
 
@@ -70,6 +88,18 @@ sns.boxplot(data=df, x="Department", y="Marks")
 plt.show()
 ```
 
+**Visual output preview**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare the median and spread. Distant points can be possible outliers and should be investigated.
+
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
+
 ## 5. Pair plot
 
 A pair plot creates pairwise plots for several numerical columns. The diagonal usually shows each variable's distribution; off-diagonal cells show relationships between pairs.
@@ -82,6 +112,12 @@ sns.pairplot(
 )
 plt.show()
 ```
+
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** A pair plot combines distributions and pairwise relationships across selected features. Use it to spot patterns between several variables.
 
 - `vars`: choose numerical columns to compare.
 - `hue`: color observations by a category.
