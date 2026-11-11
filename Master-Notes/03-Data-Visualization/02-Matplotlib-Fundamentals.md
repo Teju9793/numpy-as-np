@@ -22,6 +22,12 @@ plt.plot(days, temperature)
 plt.show()
 ```
 
+**Visual output preview — example 2**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 The x-values represent days and the y-values represent temperature. Matplotlib draws points and connects them with lines.
 
 ## 3. Add title and axis labels
@@ -34,6 +40,12 @@ plt.ylabel("Temperature (°C)")
 plt.grid(True)
 plt.show()
 ```
+
+**Visual output preview — example 3**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
 Labels tell the viewer what the axes mean. Always include units when they are relevant.
 
@@ -56,6 +68,12 @@ ax.legend()
 plt.show()
 ```
 
+**Visual output preview — example 4**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 For larger projects, prefer the object-oriented style because each Axes can be customized independently.
 
 ## 5. Change line appearance
@@ -76,6 +94,12 @@ ax.legend()
 plt.show()
 ```
 
+**Visual output preview — example 5**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 Common options:
 - `color`: line color.
 - `linestyle`: solid, dashed, dotted, etc.
@@ -92,6 +116,12 @@ ax.set_ylim(20, 40)
 ax.set_xticks([1, 2, 3, 4, 5])
 ```
 
+**Visual output preview — example 6**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** This code customizes or saves the current line chart; the preview shows the resulting chart style.
+
 Use limits carefully. A line chart may use a truncated scale for a specific reason, but make that choice clear. For bar charts, a zero baseline is usually important for honest comparison.
 
 ## 7. Add a legend
@@ -104,6 +134,12 @@ ax.plot(days, [25, 27, 28, 29, 30], label="City B")
 ax.legend()
 ```
 
+**Visual output preview — example 7**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 A legend requires labels on the plotted series.
 
 ## 8. Save a figure
@@ -111,6 +147,12 @@ A legend requires labels on the plotted series.
 ```python
 fig.savefig("temperature.png", dpi=300, bbox_inches="tight")
 ```
+
+**Visual output preview — example 8**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** This code customizes or saves the current line chart; the preview shows the resulting chart style.
 
 - `dpi`: resolution.
 - `bbox_inches="tight"`: reduce unnecessary surrounding whitespace.
