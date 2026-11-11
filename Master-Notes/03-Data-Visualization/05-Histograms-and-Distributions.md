@@ -29,6 +29,12 @@ plt.title("Distribution of Exam Marks")
 plt.show()
 ```
 
+**Visual output preview — example 1**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
+
 - x-axis: value intervals.
 - y-axis: frequency (count) by default.
 - bars touch because the bins represent continuous intervals.
@@ -47,6 +53,12 @@ plt.hist(marks, bins=10)
 plt.show()
 ```
 
+**Visual output preview — example 2**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
+
 Compare both charts and notice how the visible detail changes.
 
 ## 4. Set explicit bin edges
@@ -56,6 +68,12 @@ bins = [0, 20, 40, 60, 80, 100]
 plt.hist(marks, bins=bins, edgecolor="black")
 plt.show()
 ```
+
+**Visual output preview — example 3**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
 Explicit edges are useful when intervals have real-world meaning, such as mark bands or age groups.
 
@@ -68,6 +86,12 @@ plt.hist(marks, bins=5, density=True)
 plt.ylabel("Density")
 plt.show()
 ```
+
+**Visual output preview — example 4**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
 Density is not the same as raw count. It is useful when comparing distributions with different sample sizes.
 
@@ -101,6 +125,12 @@ df = pd.DataFrame({"Marks": marks})
 sns.histplot(data=df, x="Marks", bins=5, kde=True)
 plt.show()
 ```
+
+**Visual output preview — example 5**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
 
 KDE (kernel density estimation) creates a smoothed estimate of the distribution. It is a guide, not a direct count of observations, and can be misleading with very small samples or unsuitable bandwidths.
 
