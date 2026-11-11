@@ -18,6 +18,11 @@ Use Matplotlib and Seaborn to understand data and model behaviour.
 | 10 | [Pairplots and EDA](10-Pairplots-and-EDA.md) | Core |
 | 11 | [Advanced EDA Techniques](11-Advanced-EDA-Techniques.md) | Core |
 | 12 | [Visualization for ML](12-Visualization-for-ML.md) | Core |
+| 13 | [Graphs with Real Examples](13-Graphs-with-Real-Examples.md) | **Visual practice** |
+
+## Graph preview
+
+![Line, bar, histogram and scatter plot examples](./ml-graph-gallery.svg)
 
 ## Revision focus
 
@@ -25,5 +30,6 @@ Use Matplotlib and Seaborn to understand data and model behaviour.
 - Understand distributions and relationships
 - Compare groups and detect unusual values
 - Diagnose model errors with suitable plots
+- Explain what a graph reveals in plain language
 
 [← Back to Master Notes](../README.md)
