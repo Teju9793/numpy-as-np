@@ -19,6 +19,7 @@ Numerical computing for arrays, matrices and ML data.
 | 11 | [Random Numbers and Sampling](11-Random-Numbers-and-Sampling.md) | Core |
 | 12 | [Linear Algebra for ML](12-Linear-Algebra-for-ML.md) | Core |
 | 13 | [NumPy for ML](13-NumPy-for-ML.md) | Core |
+| 14 | [Practical Examples with Outputs](14-NumPy-Practical-Outputs-for-ML.md) | **Practice** |
 
 ## Revision focus
 
@@ -26,5 +27,6 @@ Numerical computing for arrays, matrices and ML data.
 - Axis and broadcasting
 - Vectorization and matrix operations
 - Numerical stability and reproducibility
+- Run practical examples and predict their outputs
 
 [← Back to Master Notes](../README.md)
