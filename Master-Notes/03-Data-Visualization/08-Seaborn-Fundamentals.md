@@ -29,6 +29,12 @@ sns.scatterplot(data=df, x="Hours", y="Marks", hue="Department")
 plt.show()
 ```
 
+**Visual output preview — example 3**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
+
 - `data`: DataFrame or other supported data source.
 - `x`, `y`: column names.
 - `hue`: map color to a variable.
@@ -46,6 +52,26 @@ sns.violinplot(data=df, x="Department", y="Marks")
 sns.countplot(data=df, x="Department")
 sns.barplot(data=df, x="Department", y="Marks")
 ```
+
+**Visual output preview — example 4**
+
+![histogram](./outputs/histogram.svg)
+
+**What to notice:** Bars show how many observations fall in each interval. Compare the shape, centre and spread.
+
+
+**Visual output preview — example 4**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare medians and spread; points beyond whiskers may be unusual observations, not automatic errors.
+
+
+**Visual output preview — example 4**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** Compare bar heights across categories. Check what each bar measures: a count, total, average or other summary.
 
 Each function answers a different question:
 - histogram: numerical distribution,
@@ -67,6 +93,12 @@ If you already calculated one value per category, a Matplotlib bar plot or Seabo
 sns.set_theme(style="whitegrid", context="notebook")
 ```
 
+**Visual output preview — example 5**
+
+![bar chart](./outputs/bar-chart.svg)
+
+**What to notice:** The theme changes the overall appearance of Seaborn charts; the preview illustrates a chart using the styled plotting area.
+
 Themes control visual defaults such as background, grid and scaling. You can still customize the Matplotlib Axes after creating a Seaborn plot.
 
 ## 7. Customize using Matplotlib
@@ -78,6 +110,12 @@ ax.set_xlabel("Study Hours per Day")
 ax.set_ylabel("Exam Marks")
 plt.show()
 ```
+
+**Visual output preview — example 6**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
 Seaborn often returns a Matplotlib Axes object, allowing further customization.
 
