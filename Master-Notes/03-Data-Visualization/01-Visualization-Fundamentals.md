@@ -35,6 +35,19 @@ A chart is not decoration. It should answer a question.
 | How are two categories associated? | Heatmap / count plot |
 | How do several numeric features relate? | Pair plot |
 
+## 3A. See the main graph types
+
+Before writing plotting code, compare these visual examples. Each graph answers a different question.
+
+![Line, bar, histogram and scatter plot examples](./ml-graph-gallery.svg)
+
+- **Line:** follow a value across time or another ordered sequence.
+- **Bar:** compare values between categories.
+- **Histogram:** understand how numerical values are distributed.
+- **Scatter:** inspect the relationship between two numerical variables.
+
+Use this visual guide together with the detailed examples in the chapters below.
+
 ## 4. Understand variables
 
 - **Numerical variable:** measured or counted, such as age, marks or price.
