@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="690" viewBox="0 0 1200 690" role="img" aria-labelledby="title desc">
+<title id="title">Four example data visualizations</title>
+<desc id="desc">Line plot, bar chart, histogram and scatter plot for learning exploratory data analysis.</desc>
+<rect width="1200" height="690" rx="24" fill="#f8fafc"/>
+<text x="48" y="54" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#0f172a">Data Visualization · Graph Gallery</text>
+<text x="48" y="82" font-family="Arial,sans-serif" font-size="15" fill="#64748b">Four common plots used in exploratory data analysis and machine learning</text>
+<g fill="#fff" stroke="#e2e8f0" stroke-width="2"><rect x="35" y="110" width="550" height="250" rx="18"/><rect x="615" y="110" width="550" height="250" rx="18"/><rect x="35" y="390" width="550" height="250" rx="18"/><rect x="615" y="390" width="550" height="250" rx="18"/></g>
+<text x="62" y="145" font-family="Arial" font-size="20" font-weight="700" fill="#0f172a">1. Line · Change over time</text>
+<path d="M90 315 V165 M90 315 H535" stroke="#94a3b8" stroke-width="2" fill="none"/>
+<path d="M115 290 L205 270 L295 240 L385 205 L475 170" stroke="#2563eb" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#2563eb"><circle cx="115" cy="290" r="6"/><circle cx="205" cy="270" r="6"/><circle cx="295" cy="240" r="6"/><circle cx="385" cy="205" r="6"/><circle cx="475" cy="170" r="6"/></g>
+<text x="300" y="342" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b">Week</text>
+<text x="645" y="145" font-family="Arial" font-size="20" font-weight="700" fill="#0f172a">2. Bar · Compare categories</text>
+<path d="M675 315 V165 M675 315 H1120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+<g fill="#0d9488"><rect x="745" y="190" width="75" height="125" rx="6"/><rect x="875" y="220" width="75" height="95" rx="6"/><rect x="1005" y="250" width="75" height="65" rx="6"/></g>
+<g font-family="Arial" font-size="14" fill="#475569" text-anchor="middle"><text x="782" y="339">CSE</text><text x="912" y="339">ECE</text><text x="1042" y="339">ME</text></g>
+<text x="62" y="425" font-family="Arial" font-size="20" font-weight="700" fill="#0f172a">3. Histogram · Distribution</text>
+<path d="M90 595 V445 M90 595 H535" stroke="#94a3b8" stroke-width="2" fill="none"/>
+<g fill="#8b5cf6" opacity=".9"><rect x="115" y="565" width="60" height="30"/><rect x="176" y="535" width="60" height="60"/><rect x="237" y="485" width="60" height="110"/><rect x="298" y="465" width="60" height="130"/><rect x="359" y="515" width="60" height="80"/><rect x="420" y="555" width="60" height="40"/></g>
+<text x="300" y="622" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b">Marks (bins)</text>
+<text x="645" y="425" font-family="Arial" font-size="20" font-weight="700" fill="#0f172a">4. Scatter · Relationship</text>
+<path d="M675 595 V445 M675 595 H1120" stroke="#94a3b8" stroke-width="2" fill="none"/>
+<g fill="#ea580c" opacity=".9"><circle cx="725" cy="575" r="7"/><circle cx="770" cy="560" r="7"/><circle cx="805" cy="570" r="7"/><circle cx="850" cy="535" r="7"/><circle cx="890" cy="520" r="7"/><circle cx="930" cy="500" r="7"/><circle cx="980" cy="485" r="7"/><circle cx="1030" cy="455" r="7"/><circle cx="1080" cy="470" r="7"/></g>
+<path d="M710 585 L1095 450" stroke="#fb923c" stroke-width="3" stroke-dasharray="7 7" fill="none"/>
+<text x="900" y="622" text-anchor="middle" font-family="Arial" font-size="13" fill="#64748b">Study hours</text>
+<text x="48" y="670" font-family="Arial" font-size="12" fill="#64748b">Illustrative teaching graphics — use the chapter code to generate plots from your own data.</text>
+</svg>
