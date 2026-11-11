@@ -21,6 +21,12 @@ ax.grid(True)
 plt.show()
 ```
 
+**Visual output preview — example 1**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 The line helps the viewer see direction and changes over time.
 
 ## 2. Multiple lines
@@ -39,6 +45,12 @@ ax.legend()
 plt.show()
 ```
 
+**Visual output preview — example 2**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
+
 Use distinct labels and a restrained set of visual styles. Too many lines can make the chart unreadable.
 
 ## 3. Scatter plot — show paired observations
@@ -56,6 +68,12 @@ ax.set_ylabel("Marks")
 ax.set_title("Study Hours vs Marks")
 plt.show()
 ```
+
+**Visual output preview — example 3**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
 Each dot represents one student. The overall pattern may suggest a positive relationship, but it does not prove that study hours alone caused the marks.
 
@@ -86,6 +104,12 @@ ax.set_ylabel("Marks")
 plt.show()
 ```
 
+**Visual output preview — example 4**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
+
 Marker size or color can represent another variable. If color represents a numerical value, add a colorbar and label it. If it represents categories, explain the category mapping.
 
 ## 6. Regression line as a visual guide
@@ -103,6 +127,12 @@ data = pd.DataFrame({
 sns.regplot(data=data, x="Hours", y="Marks")
 plt.show()
 ```
+
+**Visual output preview — example 5**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
 The line summarizes a linear trend. It is not proof of causation and may not be appropriate if the relationship is nonlinear or assumptions are violated.
 
