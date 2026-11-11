@@ -24,7 +24,7 @@ plt.show()
 
 **Visual output preview — example 2**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -43,7 +43,7 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -70,7 +70,7 @@ plt.show()
 
 **Visual output preview — example 4**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -96,7 +96,7 @@ plt.show()
 
 **Visual output preview — example 5**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -118,7 +118,7 @@ ax.set_xticks([1, 2, 3, 4, 5])
 
 **Visual output preview — example 6**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** This code customizes or saves the current line chart; the preview shows the resulting chart style.
 
@@ -136,7 +136,7 @@ ax.legend()
 
 **Visual output preview — example 7**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -150,7 +150,7 @@ fig.savefig("temperature.png", dpi=300, bbox_inches="tight")
 
 **Visual output preview — example 8**
 
-![line plot](./outputs/line-plot.svg)
+![line plot](./outputs/ch02-first-line.svg)
 
 **What to notice:** This code customizes or saves the current line chart; the preview shows the resulting chart style.
 
