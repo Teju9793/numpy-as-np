@@ -20,6 +20,10 @@ Use Matplotlib and Seaborn to understand data and model behaviour.
 | 12 | [Visualization for ML](12-Visualization-for-ML.md) | Core |
 | 13 | [Graphs with Real Examples](13-Graphs-with-Real-Examples.md) | **Visual practice** |
 
+## Visual learning format
+
+Practical plotting examples include an output preview directly below the code, followed by a short note explaining what to notice in the chart. Use the previews to connect Python commands with the graph they create.
+
 ## Graph preview
 
 ![Line, bar, histogram and scatter plot examples](./ml-graph-gallery.svg)
