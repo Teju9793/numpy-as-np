@@ -55,6 +55,12 @@ plt.title("Correlation Heatmap")
 plt.show()
 ```
 
+**Visual output preview — example 3**
+
+![heatmap](./outputs/heatmap.svg)
+
+**What to notice:** Notice how the colour intensity represents the value in each cell; read the annotations for exact values.
+
 - `annot=True`: write values inside cells.
 - `vmin` and `vmax`: set color scale limits.
 - `cmap`: choose a color map.
@@ -73,6 +79,12 @@ sns.heatmap(corr, mask=mask, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
 plt.show()
 ```
 
+**Visual output preview — example 4**
+
+![heatmap](./outputs/heatmap.svg)
+
+**What to notice:** Notice how the colour intensity represents the value in each cell; read the annotations for exact values.
+
 The mask hides the upper triangle including the diagonal.
 
 ## 6. Correlation does not mean causation
@@ -89,6 +101,12 @@ Pearson correlation can be strongly affected by outliers. Always inspect a scatt
 sns.scatterplot(data=df, x="Hours", y="Marks")
 plt.show()
 ```
+
+**Visual output preview — example 5**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
 A single extreme observation can create or hide an apparent linear pattern.
 
