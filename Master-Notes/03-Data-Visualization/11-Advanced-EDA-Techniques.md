@@ -47,6 +47,12 @@ sns.boxenplot(data=df, x="Department", y="Marks")
 plt.show()
 ```
 
+**Visual output preview**
+
+![box plot](./outputs/box-plot.svg)
+
+**What to notice:** Compare the median and spread. Distant points can be possible outliers and should be investigated.
+
 A boxen plot can display more distribution detail for larger datasets. A box plot or violin plot may be easier for smaller samples.
 
 ## 4. Category relationships with crosstab
@@ -56,6 +62,12 @@ table = pd.crosstab(df["Department"], df["Result"])
 sns.heatmap(table, annot=True, fmt="d", cmap="Blues")
 plt.show()
 ```
+
+**Visual output preview**
+
+![heatmap](./outputs/heatmap.svg)
+
+**What to notice:** Compare cell colours and annotations to find stronger and weaker relationships or category combinations.
 
 This displays counts for each department-result combination. Normalize counts when groups have very different sizes.
 
@@ -67,6 +79,12 @@ sns.heatmap(missing, cbar=False)
 plt.title("Missingness Pattern")
 plt.show()
 ```
+
+**Visual output preview**
+
+![heatmap](./outputs/heatmap.svg)
+
+**What to notice:** Compare cell colours and annotations to find stronger and weaker relationships or category combinations.
 
 Rows and columns reveal where values are missing. A pattern may suggest that missingness is related to a collection process or subgroup. A heatmap alone cannot establish the reason.
 
@@ -90,6 +108,12 @@ ax.set_ylabel("Sales")
 plt.show()
 ```
 
+**Visual output preview**
+
+![line plot](./outputs/line-plot.svg)
+
+**What to notice:** Follow the line across the x-axis to understand the trend, peaks and changes over time.
+
 ## 7. Rolling averages
 
 A rolling average smooths short-term variation:
@@ -108,6 +132,12 @@ A scatter plot with a smooth trend can reveal nonlinear relationships. A correla
 sns.regplot(data=df, x="Feature", y="Target", lowess=True)
 plt.show()
 ```
+
+**Visual output preview**
+
+![scatter plot](./outputs/scatter-plot.svg)
+
+**What to notice:** Each point is an observation. Look for direction, clusters, unusual points or a curved relationship.
 
 LOWESS is a locally weighted smoothing method. It is exploratory and should not be mistaken for a validated predictive model.
 
