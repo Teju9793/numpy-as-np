@@ -23,7 +23,7 @@ plt.show()
 
 **Visual output preview — example 1**
 
-![Exact output for example 1](./outputs/ch03-monthly-sales.svg)
+![Code-matched output preview](./outputs/ch03-monthly-sales.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -47,7 +47,7 @@ plt.show()
 
 **Visual output preview — example 2**
 
-![Exact output for example 2](./outputs/ch03-city-comparison.svg)
+![Code-matched output preview](./outputs/ch03-city-comparison.svg)
 
 **What to notice:** Follow the line from left to right to see how the value changes across the ordered x-axis.
 
@@ -71,7 +71,7 @@ plt.show()
 
 **Visual output preview — example 3**
 
-![Exact output for example 3](./outputs/ch03-city-comparison.svg)
+![Code-matched output preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
@@ -106,7 +106,7 @@ plt.show()
 
 **Visual output preview — example 4**
 
-![Exact output for example 4](./outputs/ch03-city-comparison.svg)
+![Code-matched output preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
@@ -130,7 +130,7 @@ plt.show()
 
 **Visual output preview — example 5**
 
-![Exact output for example 5](./outputs/ch03-city-comparison.svg)
+![Code-matched output preview](./outputs/ch03-study-scatter.svg)
 
 **What to notice:** Each point represents an observation. Look for direction, clusters, unusual points and curved patterns.
 
